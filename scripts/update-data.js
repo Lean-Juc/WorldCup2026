@@ -1,117 +1,214 @@
 /**
- * update-data.js  —  API-FOOTBALL (api-sports.io) edition
+ * update-data.js — Wikipedia scraper, no API key needed.
  *
- * Writes data.json (results + standings-feeding scores + goal/card events) for
- * index.html. Run by the GitHub Action on a schedule.
+ * Fetches the 2026 FIFA World Cup group stage results from Wikipedia,
+ * parses scores and goal scorers, and writes data.json.
  *
- *   Requires env  APIFOOTBALL_KEY   (free key from dashboard.api-football.com)
- *   Runtime       Node 18+  (built-in fetch, no dependencies)
- *
- * Free tier = ~100 requests/day. Budget is respected by:
- *   • 1 call per run for ALL fixtures + scores  (/fixtures?league=1&season=2026)
- *   • events fetched ONCE per finished match, then cached in data.json forever
- * At a 20-min cron that's ~72 base calls/day + a handful of one-off event calls.
+ * Runtime: Node 18+ (built-in fetch). No dependencies.
  */
+
 const fs = require('node:fs');
 
-const KEY = process.env.APIFOOTBALL_KEY;
-if (!KEY) { console.error('Missing APIFOOTBALL_KEY env var'); process.exit(1); }
-
-const HOST = 'https://v3.football.api-sports.io';
-const HEADERS = { 'x-apisports-key': KEY };
-const LEAGUE = 1;        // FIFA World Cup
-const SEASON = 2026;
-
-// API-Football spellings -> canonical names used in index.html
+// ── Canonical team name mapping (Wikipedia → index.html names) ───────────────
 const NAME = {
-  'usa': 'USA', 'united states': 'USA',
-  'south korea': 'South Korea', 'korea republic': 'South Korea',
-  'czech republic': 'Czechia', 'czechia': 'Czechia',
-  'turkey': 'Türkiye', 'türkiye': 'Türkiye', 'turkiye': 'Türkiye',
-  'ivory coast': 'Ivory Coast', "côte d'ivoire": 'Ivory Coast',
-  'dr congo': 'Congo DR', 'congo dr': 'Congo DR',
-  'bosnia and herzegovina': 'Bosnia &amp; Herzegovina', 'bosnia & herzegovina': 'Bosnia &amp; Herzegovina',
-  'cape verde islands': 'Cape Verde', 'cape verde': 'Cape Verde',
-  'curacao': 'Curaçao', 'curaçao': 'Curaçao'
+  'mexico': 'Mexique', 'south africa': 'Afrique du Sud',
+  'south korea': 'Corée du Sud', 'korea republic': 'Corée du Sud',
+  'czechia': 'Tchéquie', 'czech republic': 'Tchéquie',
+  'canada': 'Canada', 'bosnia and herzegovina': 'Bosnie-Herzégovine',
+  'united states': 'États-Unis', 'usa': 'États-Unis',
+  'paraguay': 'Paraguay', 'qatar': 'Qatar', 'switzerland': 'Suisse',
+  'brazil': 'Brésil', 'morocco': 'Maroc', 'haiti': 'Haïti',
+  'scotland': 'Écosse', 'australia': 'Australie',
+  'turkey': 'Turquie', 'türkiye': 'Turquie',
+  'germany': 'Allemagne', 'curaçao': 'Curaçao', 'curacao': 'Curaçao',
+  'netherlands': 'Pays-Bas', 'japan': 'Japon',
+  "ivory coast": "Côte d'Ivoire", "côte d'ivoire": "Côte d'Ivoire",
+  'ecuador': 'Équateur', 'tunisia': 'Tunisie', 'sweden': 'Suède',
+  'spain': 'Espagne', 'cape verde': 'Cap-Vert',
+  'belgium': 'Belgique', 'egypt': 'Égypte',
+  'saudi arabia': 'Arabie Saoudite', 'uruguay': 'Uruguay',
+  'iran': 'Iran', 'new zealand': 'Nouvelle-Zélande',
+  'france': 'France', 'senegal': 'Sénégal', 'iraq': 'Irak',
+  'norway': 'Norvège', 'argentina': 'Argentine', 'algeria': 'Algérie',
+  'austria': 'Autriche', 'jordan': 'Jordanie',
+  'portugal': 'Portugal', 'dr congo': 'Congo RD', 'democratic republic of the congo': 'Congo RD',
+  'england': 'Angleterre', 'croatia': 'Croatie',
+  'ghana': 'Ghana', 'panama': 'Panama',
+  'uzbekistan': 'Ouzbékistan', 'colombia': 'Colombie'
 };
 const canon = n => NAME[(n || '').trim().toLowerCase()] || (n || '').trim();
-const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-async function api(path) {
-  const res = await fetch(HOST + path, { headers: HEADERS });
-  if (!res.ok) throw new Error(`${path} -> ${res.status} ${await res.text().catch(()=> '')}`);
-  const j = await res.json();
-  if (j.errors && Object.keys(j.errors).length) console.warn('API note:', JSON.stringify(j.errors));
-  return j.response || [];
+const WIKI_URL = 'https://en.wikipedia.org/w/api.php?action=query&titles=2026_FIFA_World_Cup_group_stage&prop=revisions&rvprop=content&format=json&formatversion=2';
+
+async function fetchWikitext() {
+  const res = await fetch(WIKI_URL, {
+    headers: { 'User-Agent': 'WC2026-tracker/1.0 (github.com/Lean-Juc/WorldCup2026)' }
+  });
+  if (!res.ok) throw new Error(`Wikipedia fetch failed: ${res.status}`);
+  const json = await res.json();
+  return json.query.pages[0].revisions[0].content;
 }
 
-function mapEvents(raw) {
-  const out = [];
-  for (const e of raw) {
-    const type = e.type, detail = e.detail || '';
-    let t = null, d;
-    if (type === 'Goal') {
-      if (detail === 'Missed Penalty') continue;
-      t = 'goal';
-      if (detail === 'Penalty') d = 'Penalty';
-      else if (detail === 'Own Goal') d = 'Own Goal';
-    } else if (type === 'Card') {
-      if (detail === 'Red Card') t = 'red';
-      else if (detail === 'Second Yellow card') { t = 'red'; d = '2nd yellow'; }
-      else if (detail === 'Yellow Card') t = 'yellow';
-      else continue;
-    } else continue;
-    const ev = { t, m: e.time?.elapsed ?? 0, team: canon(e.team?.name) };
-    if (e.time?.extra) ev.x = e.time.extra;
-    if (e.player?.name) ev.p = e.player.name;
-    if (t === 'goal' && e.assist?.name) ev.a = e.assist.name;
-    if (d) ev.d = d;
-    out.push(ev);
-  }
-  return out;
-}
-
-async function main() {
-  // keep previously-cached events so we never re-fetch a finished match
-  let prev = {};
-  try { prev = JSON.parse(fs.readFileSync('data.json', 'utf8')); } catch {}
-  const events = prev.events || {};
-
-  const fixtures = await api(`/fixtures?league=${LEAGUE}&season=${SEASON}`);
+// ── Parse {{Football box}} templates ─────────────────────────────────────────
+function parseMatches(wikitext) {
   const results = {};
-  const newlyFinished = [];
+  const events = {};
 
-  for (const fx of fixtures) {
-    const st = fx.fixture?.status?.short;             // FT, AET, PEN = finished
-    if (!['FT', 'AET', 'PEN'].includes(st)) continue;
-    const home = canon(fx.teams?.home?.name);
-    const away = canon(fx.teams?.away?.name);
-    const gh = fx.goals?.home, ga = fx.goals?.away;
-    if (gh == null || ga == null) continue;
+  // Match all {{football box ...}} blocks
+  const boxRegex = /\{\{[Ff]ootball box([^}]|\}(?!\}))*\}\}/g;
+  let m;
+
+  while ((m = boxRegex.exec(wikitext)) !== null) {
+    const block = m[0];
+    const get = (key) => {
+      const r = new RegExp(`\\|\\s*${key}\\s*=\\s*([^|\\n}]+)`, 'i');
+      const match = block.match(r);
+      return match ? match[1].trim() : null;
+    };
+
+    const home = canon(get('home'));
+    const away = canon(get('away'));
+    const score1 = get('score1') || get('goals1');
+    const score2 = get('score2') || get('goals2');
+    const report = get('report') || '';
+
+    // Only process if we have a final score (not a placeholder like "– – –")
+    if (!home || !away) continue;
+    const gh = parseInt(score1);
+    const ga = parseInt(score2);
+    if (isNaN(gh) || isNaN(ga)) continue;
+    if (score1 && score1.includes('–') && !score1.match(/^\d/)) continue;
+
     const key = `${home}_${away}`;
     results[key] = [gh, ga];
-    if (!events[key]) newlyFinished.push({ id: fx.fixture.id, key });
+
+    // Parse goal scorers
+    const goalEvents = [];
+
+    const parseGoalLine = (raw, teamName) => {
+      if (!raw) return;
+      // Each scorer separated by \n or {{br}}
+      const entries = raw.split(/\{\{br\}\}|\n/i).map(s => s.trim()).filter(Boolean);
+      for (const entry of entries) {
+        // e.g. "[[Kai Havertz|Havertz]] {{goal|6}}" or "Havertz {{pen|45+5}}"
+        const isPen = /\{\{pen/i.test(entry);
+        const isOG = /\{\{og/i.test(entry);
+        const minuteMatch = entry.match(/\{\{(?:goal|pen|og)[^}]*\|(\d+)(?:\+(\d+))?/i);
+        if (!minuteMatch) continue;
+        const min = parseInt(minuteMatch[1]);
+        const extra = minuteMatch[2] ? parseInt(minuteMatch[2]) : undefined;
+
+        // Extract player name (strip wiki links and templates)
+        let player = entry
+          .replace(/\[\[([^\]|]+\|)?([^\]]+)\]\]/g, '$2')
+          .replace(/\{\{[^}]+\}\}/g, '')
+          .replace(/'{2,}/g, '')
+          .trim()
+          .split(/\s+/).slice(0, 3).join(' ');
+
+        const ev = { t: 'goal', m: min, team: teamName, p: player };
+        if (extra) ev.x = extra;
+        if (isPen) ev.d = 'Penalty';
+        if (isOG) ev.d = 'Own Goal';
+        goalEvents.push(ev);
+      }
+    };
+
+    // Try to get goal1/goal2 fields
+    parseGoalLine(get('goals1') || get('goal1') || get('report1'), home);
+    parseGoalLine(get('goals2') || get('goal2') || get('report2'), away);
+
+    if (goalEvents.length > 0) {
+      goalEvents.sort((a, b) => a.m - b.m || (a.x || 0) - (b.x || 0));
+      events[key] = goalEvents;
+    }
   }
 
-  // fetch events only for matches we don't already have (one-off, cached)
-  for (const m of newlyFinished) {
-    try {
-      const raw = await api(`/fixtures/events?fixture=${m.id}`);
-      events[m.key] = mapEvents(raw);
-      console.log(`events: ${m.key} (${events[m.key].length})`);
-      await sleep(1500);                               // be gentle on 10/min limit
-    } catch (e) { console.warn('events failed for', m.key, e.message); }
+  return { results, events };
+}
+
+// ── Fallback: parse from the simpler {{Fb r}} table rows ─────────────────────
+function parseFromResultTables(wikitext) {
+  const results = {};
+
+  // Match patterns like: | {{fb|GER}} || 7 – 1 || {{fb|CUW}}
+  // or simpler: GER 7–1 CUW style
+  const rowRegex = /\|\s*\{\{fb\|([A-Z]{2,3})\}\}\s*\|\|\s*(\d+)\s*[–\-]\s*(\d+)\s*\|\|\s*\{\{fb\|([A-Z]{2,3})\}\}/g;
+
+  const FIFA_CODE = {
+    'MEX': 'Mexique', 'RSA': 'Afrique du Sud', 'KOR': 'Corée du Sud',
+    'CZE': 'Tchéquie', 'CAN': 'Canada', 'BIH': 'Bosnie-Herzégovine',
+    'USA': 'États-Unis', 'PAR': 'Paraguay', 'QAT': 'Qatar', 'SUI': 'Suisse',
+    'BRA': 'Brésil', 'MAR': 'Maroc', 'HAI': 'Haïti', 'SCO': 'Écosse',
+    'AUS': 'Australie', 'TUR': 'Turquie', 'GER': 'Allemagne', 'CUW': 'Curaçao',
+    'NED': 'Pays-Bas', 'JPN': 'Japon', 'CIV': "Côte d'Ivoire", 'ECU': 'Équateur',
+    'TUN': 'Tunisie', 'SWE': 'Suède', 'ESP': 'Espagne', 'CPV': 'Cap-Vert',
+    'BEL': 'Belgique', 'EGY': 'Égypte', 'KSA': 'Arabie Saoudite', 'URU': 'Uruguay',
+    'IRN': 'Iran', 'NZL': 'Nouvelle-Zélande', 'FRA': 'France', 'SEN': 'Sénégal',
+    'IRQ': 'Irak', 'NOR': 'Norvège', 'ARG': 'Argentine', 'ALG': 'Algérie',
+    'AUT': 'Autriche', 'JOR': 'Jordanie', 'POR': 'Portugal', 'COD': 'Congo RD',
+    'ENG': 'Angleterre', 'CRO': 'Croatie', 'GHA': 'Ghana', 'PAN': 'Panama',
+    'UZB': 'Ouzbékistan', 'COL': 'Colombie'
+  };
+
+  let m;
+  while ((m = rowRegex.exec(wikitext)) !== null) {
+    const home = FIFA_CODE[m[1]];
+    const away = FIFA_CODE[m[4]];
+    const gh = parseInt(m[2]);
+    const ga = parseInt(m[3]);
+    if (home && away && !isNaN(gh) && !isNaN(ga)) {
+      results[`${home}_${away}`] = [gh, ga];
+    }
   }
+
+  return results;
+}
+
+// ── Main ─────────────────────────────────────────────────────────────────────
+async function main() {
+  // Load existing data to preserve manually-set events
+  let prev = {};
+  try { prev = JSON.parse(fs.readFileSync('data.json', 'utf8')); } catch {}
+  const prevEvents = prev.events || {};
+
+  console.log('Fetching Wikipedia wikitext...');
+  const wikitext = await fetchWikitext();
+
+  console.log('Parsing match results...');
+  let { results, events } = parseMatches(wikitext);
+
+  // Fallback: try the simpler table format if we got nothing
+  if (Object.keys(results).length === 0) {
+    console.log('Primary parser got 0 results, trying fallback...');
+    results = parseFromResultTables(wikitext);
+  }
+
+  console.log(`Found ${Object.keys(results).length} finished matches.`);
+
+  // Merge events: keep previously-set events (manual or parsed), add new ones
+  const mergedEvents = { ...prevEvents };
+  for (const [key, evs] of Object.entries(events)) {
+    if (evs.length > 0 && !mergedEvents[key]) {
+      mergedEvents[key] = evs;
+    }
+  }
+
+  // If Wikipedia gave us fewer results than we already had, keep the existing ones
+  const finalResults = Object.keys(results).length >= Object.keys(prev.results || {}).length
+    ? results
+    : prev.results || {};
 
   const out = {
     updated: new Date().toISOString(),
-    source: 'api-football',
-    count: Object.keys(results).length,
-    results,
-    events
+    source: 'wikipedia',
+    count: Object.keys(finalResults).length,
+    results: finalResults,
+    events: mergedEvents
   };
+
   fs.writeFileSync('data.json', JSON.stringify(out, null, 2) + '\n');
-  console.log(`Wrote data.json — ${out.count} finished, ${Object.keys(events).length} with events.`);
+  console.log(`✅ data.json written — ${out.count} matches, ${Object.keys(mergedEvents).length} with events.`);
 }
 
 main().catch(e => { console.error(e); process.exit(1); });
