@@ -117,6 +117,11 @@
   .tag.warn{background:var(--gold-lt);color:var(--gold);border:1px solid var(--gold)}
   .note{font-size:12.5px;color:var(--muted);margin-top:12px;padding:10px 14px;border-left:3px solid var(--accent);background:var(--accent-lt);border-radius:0 8px 8px 0}
   .note .yes-inline{color:var(--accent);font-weight:700}
+  .stream-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .slink{display:inline-flex;align-items:center;gap:5px;font-family:'Hanken Grotesk';font-weight:700;font-size:12px;color:var(--accent);background:var(--accent-lt);border:1px solid var(--accent);border-radius:7px;padding:5px 10px;text-decoration:none;transition:.15s}
+  .slink:hover{background:var(--accent);color:#fff}
+  [data-theme="dark"] .slink:hover{color:#06160e}
+  .slink span{font-weight:400;font-size:10px;opacity:.7;text-transform:uppercase;letter-spacing:.05em}
 
   /* DAYS & MATCHES */
   .day{margin-top:18px}
@@ -143,6 +148,8 @@
   .free .yes{color:var(--accent);font-weight:700}
   .free .lg{opacity:.75;margin-right:2px}
   .free .paid{color:var(--muted);font-size:9px}
+  .row-slink{color:var(--accent);font-size:10px;font-weight:700;text-decoration:none;opacity:.8;transition:.12s;margin-left:2px}
+  .row-slink:hover{opacity:1}
   .cal-btn{background:none;border:1px solid var(--line);border-radius:6px;color:var(--muted);font-size:12px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.12s;flex-shrink:0}
   .cal-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-lt)}
   .cal-btn.sel{border-color:var(--accent);background:var(--accent-lt)}
@@ -240,6 +247,63 @@
   footer{margin-top:40px;text-align:center;color:var(--muted);font-size:12px;font-family:'DM Mono',monospace;letter-spacing:.04em;padding-top:20px;border-top:1px solid var(--line)}
   .empty{padding:40px;text-align:center;color:var(--muted);font-style:italic;display:none}
 
+  /* ── PROGRESS STRIP (header) ──────────────────────────────────── */
+  .prog{margin-top:18px;max-width:540px}
+  .prog-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  .prog-phase{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:var(--accent-lt);border:1px solid var(--accent);padding:3px 10px;border-radius:999px;font-weight:500}
+  .prog-stats{font-size:13px;color:var(--muted);margin-left:auto}
+  .prog-stats b{color:var(--ink);font-weight:800;font-family:'Hanken Grotesk'}
+  .prog-track{height:7px;background:var(--bg2);border-radius:999px;overflow:hidden;border:1px solid var(--line);position:relative}
+  .prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:999px;transition:width .7s cubic-bezier(.4,0,.2,1)}
+  .prog-cap{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-top:6px;letter-spacing:.04em}
+
+  /* ── TODAY HERO ───────────────────────────────────────────────── */
+  .today-hero{margin:14px 0 6px}
+  .hero-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+  .hero-head h2{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(20px,3.5vw,26px);text-transform:uppercase;letter-spacing:.02em;color:var(--ink);display:flex;align-items:center;gap:9px}
+  .hero-head .hh-ico{font-size:.85em}
+  .hero-head .hh-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .hero-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:11px}
+  .hcard{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:13px 14px;box-shadow:var(--shadow);position:relative;transition:transform .15s,box-shadow .15s,border-color .15s;display:flex;flex-direction:column;gap:11px;overflow:hidden}
+  .hcard:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+  .hcard.live{border-color:var(--ma)}
+  .hcard.live::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--ma)}
+  .hcard-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .hcard-grp{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--bg2);border:1px solid var(--line);padding:2px 8px;border-radius:5px}
+  .hb{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;font-weight:500;padding:2px 9px;border-radius:999px;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+  .hb.up{color:var(--accent);background:var(--accent-lt);border:1px solid var(--accent)}
+  .hb.done{color:var(--muted);background:var(--bg2);border:1px solid var(--line)}
+  .hb.live{color:#fff;background:var(--ma);border:1px solid var(--ma)}
+  [data-theme="dark"] .hb.live{color:#fff}
+  .hb-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:pulse 1.2s infinite}
+  .hc-teams{display:flex;flex-direction:column;gap:8px}
+  .hc-team{display:flex;align-items:center;gap:9px}
+  .hc-team .fi{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;font-size:20px;line-height:1;flex-shrink:0}
+  .hc-team .nm{font-weight:700;font-size:15px;color:var(--ink);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hc-team .sc{font-family:'Anton',sans-serif;font-weight:400;font-size:23px;color:var(--ink);min-width:18px;text-align:right;letter-spacing:.02em}
+  .hc-team.win .nm{color:var(--accent)}.hc-team.win .sc{color:var(--accent)}
+  .hc-team.lose .nm,.hc-team.lose .sc{color:var(--muted)}
+  .hc-vs{font-size:11px;color:var(--muted);text-align:center;font-family:'DM Mono',monospace;letter-spacing:.1em;margin:-3px 0}
+  .hc-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid var(--line);padding-top:10px}
+  .hc-time{font-family:'DM Mono',monospace;font-size:13px;color:var(--muted);font-weight:500}
+  .hc-cd{font-family:'DM Mono',monospace;font-size:12.5px;color:var(--accent);font-weight:500}
+  .hc-watch{display:inline-flex;align-items:center;gap:4px;font-family:'Hanken Grotesk';font-size:11px;font-weight:700;color:var(--accent);text-decoration:none;background:var(--accent-lt);border:1px solid var(--accent);border-radius:6px;padding:4px 9px;transition:.12s}
+  .hc-watch:hover{background:var(--accent);color:#fff}
+  [data-theme="dark"] .hc-watch:hover{color:#06160e}
+  .hc-watch span{font-weight:400;font-size:9px;opacity:.7;text-transform:uppercase}
+
+  /* today marker in full list */
+  .day.is-today .dayhead{border-bottom-color:var(--accent)}
+  .day.is-today .dayhead h2{color:var(--accent)}
+  .today-pill{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--accent);padding:2px 7px;border-radius:999px;font-weight:500}
+  [data-theme="dark"] .today-pill{color:#06160e}
+
+  /* floating "today" button */
+  .today-btn{position:fixed;bottom:20px;left:20px;z-index:90;background:var(--panel);border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:9px 16px;font-family:'Hanken Grotesk';font-weight:700;font-size:13px;cursor:pointer;box-shadow:var(--shadow-lg);display:none;align-items:center;gap:6px;transition:.15s}
+  .today-btn:hover{background:var(--accent);color:#fff}
+  [data-theme="dark"] .today-btn:hover{color:#06160e}
+  .today-btn.vis{display:inline-flex;animation:fade .2s ease}
+
   /* RESPONSIVE */
   @media(max-width:900px){.tables{grid-template-columns:repeat(2,1fr)}.fd-grid{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:720px){
@@ -255,7 +319,11 @@
     .cal-toolbar{width:90%;justify-content:center}
     .fd-grid{grid-template-columns:repeat(2,1fr)}
     .theme-toggle{top:10px;right:10px;padding:5px 10px;font-size:12px}
+    .hero-grid{grid-template-columns:1fr 1fr}
+    .prog-stats{margin-left:0;width:100%}
+    .today-btn{bottom:16px;left:14px;padding:8px 13px;font-size:12px}
   }
+  @media(max-width:440px){.hero-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -265,6 +333,7 @@
     <div class="kicker"><span class="kicker-dot"></span>FIFA World Cup 2026 · USA · Canada · Mexico</div>
     <h1>World Cup <span class="yr">2026</span></h1>
     <p class="sub">Les 104 matchs en <b>heure de Paris (CEST)</b>. ET +6h — les matchs du soir tombent tard dans la nuit. <span style="color:var(--gold)">Or</span> = passe au lendemain.</p>
+    <div class="prog" id="progStrip"></div>
   </div>
 </header>
 
@@ -279,6 +348,7 @@
 
   <!-- SCHEDULE PANEL -->
   <section class="panel on" id="tab-schedule">
+    <div class="today-hero" id="todayHero"></div>
     <div class="filter-bar">
       <div class="wrap">
         <div class="filter-row">
@@ -312,6 +382,9 @@
     <button class="ct-btn" id="ctExport">📅 Ajouter au calendrier</button>
     <button class="ct-clr" id="ctClear" title="Désélectionner tout">✕</button>
   </div>
+
+  <!-- FLOATING TODAY BUTTON -->
+  <button class="today-btn" id="todayBtn">⚽ Aujourd'hui</button>
 
   <!-- STANDINGS PANEL -->
   <section class="panel" id="tab-standings">
@@ -355,16 +428,29 @@
         <div class="lang"><span class="flag">🇫🇷</span> Français</div>
         <p><b>M6 / M6+</b> depuis la France = <b>54 matchs</b> (tous les matchs de la France, l'ouverture, les demies &amp; la finale). Pour les ~50 autres, VPN sur la <b>Belgique</b> (RTBF · La Une / Tipik / Auvio) ou la <b>Suisse</b> (RTS · Play RTS) — les 104 matchs gratuitement en français.</p>
         <span class="tag free">104 matchs gratuits · VPN BE/CH</span>
+        <div class="stream-links">
+          <a class="slink" href="https://www.m6plus.fr" target="_blank" rel="noopener">▶ M6+ <span>france</span></a>
+          <a class="slink" href="https://auvio.rtbf.be" target="_blank" rel="noopener">▶ RTBF Auvio <span>vpn be</span></a>
+          <a class="slink" href="https://www.rts.ch/play/tv/direct" target="_blank" rel="noopener">▶ RTS Play <span>vpn ch</span></a>
+        </div>
       </div>
       <div class="gcard">
         <div class="lang"><span class="flag">🇬🇧</span> Anglais</div>
         <p><b>BBC</b> (iPlayer) &amp; <b>ITV</b> (ITVX) diffusent les <b>104 matchs</b> gratuitement — Royaume-Uni uniquement, donc VPN sur un <b>serveur UK</b>. Alternatives : <b>SBS On Demand</b> (Australie) &amp; <b>RTÉ Player</b> (Irlande).</p>
         <span class="tag free">104 matchs gratuits · VPN UK</span>
+        <div class="stream-links">
+          <a class="slink" href="https://www.bbc.co.uk/iplayer/live/bbcone" target="_blank" rel="noopener">▶ BBC iPlayer <span>vpn uk</span></a>
+          <a class="slink" href="https://www.itv.com/watch/live" target="_blank" rel="noopener">▶ ITVX Live <span>vpn uk</span></a>
+        </div>
       </div>
       <div class="gcard">
         <div class="lang"><span class="flag">🇪🇸</span> Español</div>
         <p>La <b>TVE</b> (La 1 / RTVE Play) diffuse les matchs en clair en Espagne. Pour les autres matchs, VPN sur l'<b>Espagne</b> (RTVE Play, gratuit, sans compte). En Amérique latine : <b>TV Azteca</b> (Mexique), <b>Caracol</b> (Colombie), <b>Canal 5</b> (Argentine) — selon le pays.</p>
         <span class="tag free">Gratuit · VPN Espagne</span>
+        <div class="stream-links">
+          <a class="slink" href="https://www.rtve.es/play/videos/directo/la-1" target="_blank" rel="noopener">▶ RTVE La 1 <span>vpn es</span></a>
+          <a class="slink" href="https://www.rtve.es/deportes/futbol/mundial" target="_blank" rel="noopener">▶ RTVE Mundial <span>vpn es</span></a>
+        </div>
       </div>
     </div>
     <div class="note">
@@ -427,7 +513,10 @@ let RESULTS = {
   "Corée du Sud_Tchéquie":[2,1],
   "Canada_Bosnie-Herzégovine":[1,1],
   "États-Unis_Paraguay":[4,1],
-  "Qatar_Suisse":[1,1]
+  "Qatar_Suisse":[1,1],
+  "Brésil_Maroc":[1,1],
+  "Haïti_Écosse":[0,1],
+  "Australie_Turquie":[2,0]
 };
 // order-independent score lookup (API may list home/away either way)
 function score(t1,t2){
@@ -665,6 +754,37 @@ function toICSDate(dayLabel, timeStr, late){
   const hh=pad(dt.getUTCHours()),mm=pad(dt.getUTCMinutes());
   return `${y}${mo}${dd}T${hh}${mm}00Z`;
 }
+
+// ---- LIVE STATUS / COUNTDOWN HELPERS ----------------------------------------
+function parisTodayISO(){
+  return new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Paris',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+}
+function matchKickoff(day,time){
+  const base = DAY_ISO[day];
+  return base ? new Date(base+'T'+time+':00+02:00') : null;
+}
+// returns {state:'live'|'upcoming'|'done', ko:Date|null, sc:[a,b]|null}
+function matchStatus(day,time,t1,t2){
+  const ko = matchKickoff(day,time);
+  const sc = score(t1,t2);
+  const now = new Date();
+  if(sc) return {state:'done', ko, sc};
+  if(!ko)  return {state:'upcoming', ko, sc:null};
+  const end = new Date(ko.getTime()+125*60000); // ~2h05 window
+  if(now < ko)  return {state:'upcoming', ko, sc:null};
+  if(now <= end) return {state:'live', ko, sc:null};
+  return {state:'done', ko, sc:null}; // played but score not entered yet
+}
+function countdownStr(ko){
+  if(!ko) return '';
+  const ms = ko - new Date();
+  if(ms <= 0) return '';
+  const tot = Math.floor(ms/60000);
+  const d = Math.floor(tot/1440), h = Math.floor((tot%1440)/60), m = tot%60;
+  if(d>0) return `dans ${d}j ${h}h`;
+  if(h>0) return `dans ${h}h ${String(m).padStart(2,'0')}`;
+  return `dans ${m} min`;
+}
 function makeICS(events){
   const uid=()=>Math.random().toString(36).slice(2)+'@wc2026';
   const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//WC2026//FR//','CALSCALE:GREGORIAN','METHOD:PUBLISH','X-WR-CALNAME:Coupe du Monde 2026','X-WR-TIMEZONE:Europe/Paris'];
@@ -704,6 +824,76 @@ function updateToolbar(){
   tb.classList.toggle('vis', n>0);
 }
 
+// ---- TODAY HERO + PROGRESS STRIP --------------------------------------------
+function teamRow(name, sc, otherSc, state){
+  const fl = FLAG[name] ? `<span class="fi">${FLAG[name]}</span>` : '<span class="fi">⚽</span>';
+  let cls='', scoreHtml='';
+  if(sc!==null){
+    cls = sc>otherSc?'win':(sc<otherSc?'lose':'');
+    scoreHtml = `<span class="sc">${sc}</span>`;
+  }
+  return `<div class="hc-team ${cls}">${fl}<span class="nm">${name}</span>${scoreHtml}</div>`;
+}
+function renderTodayHero(){
+  const host = document.getElementById('todayHero');
+  if(!host) return;
+  const todayISO = parisTodayISO();
+  let entry = M.find(([day])=>DAY_ISO[day]===todayISO && day);
+  let dayLabel, matches, headLabel, isToday=true;
+  if(entry && entry[2] && entry[2].length){
+    [dayLabel,,matches] = entry; headLabel = `Aujourd'hui · ${dayLabel}`;
+  } else {
+    const future = M.find(([day])=>DAY_ISO[day] > todayISO);
+    if(!future){ host.innerHTML=''; return; }
+    [dayLabel,,matches] = future; headLabel = `Prochains matchs · ${dayLabel}`; isToday=false;
+  }
+  const anyLive = matches.some(m=>matchStatus(dayLabel,m[0],m[1],m[2]).state==='live');
+  const cards = matches.map(m=>{
+    const [time,t1,t2,grp,fr] = m;
+    const st = matchStatus(dayLabel,time,t1,t2);
+    let badge;
+    if(st.state==='live') badge = `<span class="hb live"><span class="hb-dot"></span>EN DIRECT</span>`;
+    else if(st.state==='done') badge = `<span class="hb done">${st.sc?'FIN':'Terminé'}</span>`;
+    else badge = `<span class="hb up">${countdownStr(st.ko)||time}</span>`;
+    const a = st.sc?st.sc[0]:null, b = st.sc?st.sc[1]:null;
+    const teams = st.sc
+      ? teamRow(t1,a,b,st.state)+teamRow(t2,b,a,st.state)
+      : teamRow(t1,null,null,st.state)+`<div class="hc-vs">vs</div>`+teamRow(t2,null,null,st.state);
+    const frUrl = fr ? 'https://www.m6plus.fr' : 'https://auvio.rtbf.be';
+    const frLbl = fr ? 'M6+' : 'RTBF';
+    let foot;
+    if(st.state==='upcoming') foot = `<span class="hc-time">${time}</span><a class="hc-watch" href="${frUrl}" target="_blank" rel="noopener">▶ ${frLbl}</a>`;
+    else if(st.state==='live') foot = `<span class="hc-cd">⏱ en cours</span><a class="hc-watch" href="${frUrl}" target="_blank" rel="noopener">▶ Regarder</a>`;
+    else foot = `<span class="hc-time">${time}</span><span class="hc-time" style="opacity:.6">Groupe ${grp}</span>`;
+    return `<div class="hcard${st.state==='live'?' live':''}">
+      <div class="hcard-top"><span class="hcard-grp">Groupe ${grp}</span>${badge}</div>
+      <div class="hc-teams">${teams}</div>
+      <div class="hc-foot">${foot}</div>
+    </div>`;
+  }).join('');
+  host.innerHTML = `<div class="hero-head"><h2><span class="hh-ico">${anyLive?'🔴':'⚽'}</span>${headLabel}</h2>${isToday?'':'<span class="hh-tag">aucun match aujourd’hui</span>'}</div><div class="hero-grid">${cards}</div>`;
+}
+
+function updateProgressStrip(){
+  const el = document.getElementById('progStrip');
+  if(!el) return;
+  const played = Object.keys(RESULTS).length;
+  let goals=0; Object.values(RESULTS).forEach(s=>{ if(Array.isArray(s)) goals += (s[0]||0)+(s[1]||0); });
+  const todayISO = parisTodayISO();
+  const start = new Date('2026-06-11T12:00:00+02:00');
+  const today = new Date(todayISO+'T12:00:00+02:00');
+  const dayNum = Math.max(1, Math.floor((today-start)/86400000)+1);
+  const phase = todayISO < '2026-06-28' ? 'Phase de groupes' : (todayISO < '2026-07-19' ? 'Phase à élimination' : 'Finale');
+  const pct = Math.min(100, Math.round(played/104*100));
+  el.innerHTML = `
+    <div class="prog-row">
+      <span class="prog-phase">${phase}</span>
+      <span class="prog-stats"><b>J${dayNum}</b> · <b>${played}</b> matchs · <b>${goals}</b> buts</span>
+    </div>
+    <div class="prog-track"><div class="prog-fill" style="width:${pct}%"></div></div>
+    <div class="prog-cap">${played} / 104 matchs joués · ${104-played} à venir</div>`;
+}
+
 // ---- RENDER -----------------------------------------------------------------
 function render(){
   list.innerHTML='';
@@ -716,18 +906,20 @@ function render(){
     if(!vis.length) return;
     shown+=vis.length;
     const sec=document.createElement('div');
-    sec.className='day';
-    sec.innerHTML=`<div class="dayhead"><span class="dow">${dow}</span><h2>${day}</h2><span class="cnt">${vis.length} match${vis.length>1?'s':''}</span></div>`;
+    const isToday = DAY_ISO[day]===parisTodayISO();
+    sec.className='day'+(isToday?' is-today':'');
+    sec.innerHTML=`<div class="dayhead"><span class="dow">${dow}</span><h2>${day}</h2>${isToday?'<span class="today-pill">Aujourd’hui</span>':''}<span class="cnt">${vis.length} match${vis.length>1?'s':''}</span></div>`;
     vis.forEach(m=>{
       const [time,t1,t2,grp,fr,ma,late]=m;
       const key=`${day}|${time}|${t1}|${t2}`;
       const hl = fr?'hl-fr':(ma?'hl-ma':'');
       let badges='';
       if(fr) badges+=`<span class="badge fr">🇫🇷 gratuit M6 / M6+</span>`;
+      const frUrl = fr ? 'https://www.m6plus.fr' : 'https://auvio.rtbf.be';
       const frCh = fr ? `<span class="yes">M6 · M6+</span>` : `<span class="yes">RTBF · RTS</span>`;
       const enCh = `<span class="yes">BBC · ITV</span>`;
       const esCh = `<span class="yes">RTVE Play</span>`;
-      const freecol = `<span class="lg">🇫🇷</span> ${frCh}<br><span class="lg">🇬🇧</span> ${enCh}<br><span class="lg">🇪🇸</span> ${esCh}`;
+      const freecol = `<span class="lg">🇫🇷</span> ${frCh} <a class="row-slink" href="${frUrl}" target="_blank" rel="noopener">▶</a><br><span class="lg">🇬🇧</span> ${enCh} <a class="row-slink" href="https://www.bbc.co.uk/iplayer/live/bbcone" target="_blank" rel="noopener">▶</a><br><span class="lg">🇪🇸</span> ${esCh} <a class="row-slink" href="https://www.rtve.es/play/videos/directo/la-1" target="_blank" rel="noopener">▶</a>`;
       const am = late?`<span class="am">lendemain</span>`:'';
       const sc = score(t1,t2);
       let teamsHtml, done='';
@@ -773,7 +965,7 @@ list.addEventListener('click',e=>{
   }
   // expand done match
   const matchEl = e.target.closest('.match.done');
-  if(matchEl && !e.target.closest('.cal-btn')){
+  if(matchEl && !e.target.closest('.cal-btn') && !e.target.closest('.row-slink')){
     const d=matchEl.nextElementSibling;
     if(d&&d.classList.contains('details')){ d.classList.toggle('open'); matchEl.classList.toggle('open'); }
   }
@@ -796,6 +988,7 @@ document.querySelectorAll('.tab').forEach(t=>{
     document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
     t.classList.add('on');
     document.getElementById('tab-'+t.dataset.tab).classList.add('on');
+    const tb=document.getElementById('todayBtn'); if(tb) tb.classList.remove('vis');
     window.scrollTo({top:0,behavior:'smooth'});
   });
 });
@@ -805,11 +998,26 @@ function rerender(){
   render();
   document.getElementById('standings').innerHTML='';
   renderStandings();
+  renderTodayHero();
+  updateProgressStrip();
 }
 render();
 renderStandings();
 renderDest();
 renderBracket();
+renderTodayHero();
+updateProgressStrip();
+
+// refresh countdowns + live states every 30s
+setInterval(()=>{ renderTodayHero(); updateProgressStrip(); }, 30000);
+
+// ---- FLOATING "TODAY" BUTTON ------------------------------------------------
+const todayBtn = document.getElementById('todayBtn');
+todayBtn.addEventListener('click',()=>{ window.scrollTo({top:0,behavior:'smooth'}); });
+window.addEventListener('scroll',()=>{
+  const onSchedule = document.getElementById('tab-schedule').classList.contains('on');
+  todayBtn.classList.toggle('vis', onSchedule && window.scrollY > 700);
+}, {passive:true});
 
 // ---- AUTO-UPDATE: pull live data.json ---------------------------------------
 (async()=>{
