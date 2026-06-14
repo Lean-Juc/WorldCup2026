@@ -6,7 +6,7 @@
 <title>World Cup 2026 — Paris Time Schedule</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
 <style>
   /* ── LIGHT MODE (default) ─────────────────────────────────────── */
   :root{
@@ -53,7 +53,7 @@
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--ink);font-family:'Hanken Grotesk',sans-serif;line-height:1.5;padding:0 0 100px;-webkit-font-smoothing:antialiased;transition:background .25s,color .25s}
+  body{background:var(--bg);color:var(--ink);font-family:'Hanken Grotesk','Noto Color Emoji',sans-serif;line-height:1.5;padding:0 0 100px;-webkit-font-smoothing:antialiased;transition:background .25s,color .25s}
   .wrap{max-width:1040px;margin:0 auto;padding:0 18px}
 
   /* DARK MODE TOGGLE */
@@ -293,12 +293,12 @@
   .hc-teams{display:flex;flex-direction:column;gap:8px}
   .hc-team{display:flex;align-items:center;gap:9px}
   .hc-team .fi{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;font-size:20px;line-height:1;flex-shrink:0}
-  .fi{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;line-height:1}
+  .fi,.fl,.flag,.hcard-flag{font-family:'Noto Color Emoji','Apple Color Emoji','Segoe UI Emoji',sans-serif;line-height:1}
   .hc-team .nm{font-weight:700;font-size:15px;color:var(--ink);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .hc-team .sc{font-family:'Anton',sans-serif;font-weight:400;font-size:23px;color:var(--ink);min-width:18px;text-align:right;letter-spacing:.02em}
   .hc-team.win .nm{color:var(--accent)}.hc-team.win .sc{color:var(--accent)}
   .hc-team.lose .nm,.hc-team.lose .sc{color:var(--muted)}
-  .hc-vs{font-size:11px;color:var(--muted);text-align:center;font-family:'DM Mono',monospace;letter-spacing:.1em;margin:-3px 0}
+  .hc-teams .hc-team+.hc-team{border-top:1px dashed var(--line);padding-top:7px;margin-top:1px}
   .hc-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid var(--line);padding-top:10px}
   .hc-time{font-family:'DM Mono',monospace;font-size:13px;color:var(--muted);font-weight:500}
   .hc-cd{font-family:'DM Mono',monospace;font-size:12.5px;color:var(--accent);font-weight:500}
@@ -875,7 +875,7 @@ function renderTodayHero(){
     const a = st.sc?st.sc[0]:null, b = st.sc?st.sc[1]:null;
     const teams = st.sc
       ? teamRow(t1,a,b,st.state)+teamRow(t2,b,a,st.state)
-      : teamRow(t1,null,null,st.state)+`<div class="hc-vs">vs</div>`+teamRow(t2,null,null,st.state);
+      : teamRow(t1,null,null,st.state)+teamRow(t2,null,null,st.state);
     const frUrl = fr ? 'https://www.m6plus.fr' : 'https://auvio.rtbf.be';
     const frLbl = fr ? 'M6+' : 'RTBF';
     let foot;
