@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>World Cup 2026 — Paris Time Schedule</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<script src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
 <style>
@@ -53,7 +54,7 @@
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--ink);font-family:'Hanken Grotesk','Noto Color Emoji',sans-serif;line-height:1.5;padding:0 0 100px;-webkit-font-smoothing:antialiased;transition:background .25s,color .25s}
+  body{background:var(--bg);color:var(--ink);font-family:'Hanken Grotesk',sans-serif;line-height:1.5;padding:0 0 100px;-webkit-font-smoothing:antialiased;transition:background .25s,color .25s}
   .wrap{max-width:1040px;margin:0 auto;padding:0 18px}
 
   /* DARK MODE TOGGLE */
@@ -150,7 +151,7 @@
   .time{font-family:'DM Mono',monospace;font-size:15px;font-weight:500;color:var(--ink)}
   .time .am{display:block;font-size:9px;color:var(--gold);letter-spacing:.08em;margin-top:1px}
   .teams{font-weight:700;font-size:15px;line-height:1.3;display:flex;align-items:center;flex-wrap:wrap;gap:3px;color:var(--ink)}
-  .teams .fl{margin-right:4px;font-size:16px;line-height:1;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}
+  .teams .fl{margin-right:4px;font-size:16px;line-height:1}
   .teams .vs{color:var(--muted);font-weight:400;margin:0 6px;font-size:11px;letter-spacing:.05em}
   .meta{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:3px}
   .grp{font-family:'DM Mono',monospace;font-size:9.5px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;background:var(--bg2);padding:1px 6px;border-radius:4px;border:1px solid var(--line)}
@@ -210,7 +211,7 @@
   .gtable th.tm{text-align:left}
   .gtable td{font-size:11px;padding:3.5px 0;border-top:1px solid var(--line);text-align:right;vertical-align:middle;color:var(--ink)}
   .gtable td.tm{text-align:left;font-weight:600;display:flex;align-items:center;gap:4px;max-width:88px;overflow:hidden}
-  .gtable td.tm .fl{font-size:11px;flex-shrink:0;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}
+  .gtable td.tm .fl{font-size:11px;flex-shrink:0}
   .gtable td.tm .tn{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:10.5px}
   .gtable td.pts{font-weight:800}
   .gtable tr.q1 td,.gtable tr.q2 td{background:color-mix(in srgb, var(--row-gc,var(--accent)) 8%, transparent)}
@@ -292,8 +293,8 @@
   .hb-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:pulse 1.2s infinite}
   .hc-teams{display:flex;flex-direction:column;gap:8px}
   .hc-team{display:flex;align-items:center;gap:9px}
-  .hc-team .fi{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;font-size:20px;line-height:1;flex-shrink:0}
-  .fi,.fl,.flag,.hcard-flag{font-family:'Noto Color Emoji','Apple Color Emoji','Segoe UI Emoji',sans-serif;line-height:1}
+  .hc-team .fi{font-size:20px;flex-shrink:0}
+  .fi,.fl,.flag{font-family:'Noto Color Emoji','Apple Color Emoji','Segoe UI Emoji',sans-serif !important;line-height:1}
   .hc-team .nm{font-weight:700;font-size:15px;color:var(--ink);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .hc-team .sc{font-family:'Anton',sans-serif;font-weight:400;font-size:23px;color:var(--ink);min-width:18px;text-align:right;letter-spacing:.02em}
   .hc-team.win .nm{color:var(--accent)}.hc-team.win .sc{color:var(--accent)}
@@ -320,6 +321,9 @@
   .today-btn.vis{display:inline-flex;animation:fade .2s ease}
 
   /* RESPONSIVE */
+  .twemoji-flag{width:1.2em;height:1.2em;vertical-align:middle;display:inline-block}
+  .hc-team .twemoji-flag{width:1.5em;height:1.5em}
+  .hcard-grp,.hb{font-size:10px}
   @media(max-width:900px){.tables{grid-template-columns:repeat(2,1fr)}.fd-grid{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:720px){
     .guide{grid-template-columns:1fr}
@@ -1018,6 +1022,7 @@ function rerender(){
   renderStandings();
   renderTodayHero();
   updateProgressStrip();
+  if(typeof twemoji!=='undefined') setTimeout(applyTwemoji,0);
 }
 render();
 renderStandings();
@@ -1025,6 +1030,7 @@ renderDest();
 renderBracket();
 renderTodayHero();
 updateProgressStrip();
+if(typeof twemoji!=='undefined') applyTwemoji();
 
 // refresh countdowns + live states every 30s
 setInterval(()=>{ renderTodayHero(); updateProgressStrip(); }, 30000);
@@ -1052,6 +1058,18 @@ window.addEventListener('scroll',()=>{
     }
   }catch(e){}
 })();
+
+// ---- TWEMOJI: render flag emoji as images for cross-platform support --------
+function applyTwemoji(){
+  document.querySelectorAll('.fl,.fi,.flag').forEach(el=>{
+    twemoji.parse(el,{
+      folder:'svg',ext:'.svg',
+      base:'https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/',
+      className:'twemoji-flag',
+      callback:(icon,opts)=>`${opts.base}${opts.size}/${icon}${opts.ext}`
+    });
+  });
+}
 </script>
 </body>
 </html>
