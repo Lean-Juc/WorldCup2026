@@ -2,7 +2,8 @@ name: Update World Cup data
 
 on:
   schedule:
-    - cron: "*/20 * * * *"
+    # Toutes les heures entre 0h et 3h UTC (2h-5h Paris) — matchs du soir US
+    - cron: "0 * * * *"
   workflow_dispatch: {}
 
 permissions:
@@ -25,9 +26,7 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Fetch latest results + events
-        env:
-          APIFOOTBALL_KEY: ${{ secrets.APIFOOTBALL_KEY }}
+      - name: Fetch results from Wikipedia
         run: node scripts/update-data.js
 
       - name: Commit if changed
@@ -38,7 +37,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No change."
           else
-            git commit -m "Update results $(date -u +%Y-%m-%dT%H:%MZ)"
+            git commit -m "🤖 Update results $(date -u +%Y-%m-%dT%H:%MZ)"
             git pull --rebase origin main
             git push
           fi
