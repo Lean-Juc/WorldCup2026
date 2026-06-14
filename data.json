@@ -1,43 +1,120 @@
 {
-  "updated": "2026-06-14T01:23:00.000Z",
-  "source": "manual",
-  "count": 6,
-  "results": {
-    "Mexique_Afrique du Sud": [2, 0],
-    "Corée du Sud_Tchéquie": [2, 1],
-    "Canada_Bosnie-Herzégovine": [1, 1],
-    "États-Unis_Paraguay": [4, 1],
-    "Qatar_Suisse": [1, 1],
-    "Brésil_Maroc": [1, 1]
-  },
+  "updated": "2026-06-14T06:18:34.322Z",
+  "source": "api-football",
+  "count": 0,
+  "results": {},
   "events": {
     "Mexique_Afrique du Sud": [
-      { "t": "goal", "m": 28, "team": "Mexique", "p": "H. Lozano" },
-      { "t": "goal", "m": 72, "team": "Mexique", "p": "R. Jiménez" }
+      {
+        "t": "goal",
+        "m": 28,
+        "team": "Mexique",
+        "p": "H. Lozano"
+      },
+      {
+        "t": "goal",
+        "m": 72,
+        "team": "Mexique",
+        "p": "R. Jiménez"
+      }
     ],
     "Corée du Sud_Tchéquie": [
-      { "t": "goal", "m": 13, "team": "Corée du Sud", "p": "H. Son" },
-      { "t": "goal", "m": 55, "team": "Corée du Sud", "p": "K. Hwang" },
-      { "t": "goal", "m": 78, "team": "Tchéquie", "p": "P. Schick" }
+      {
+        "t": "goal",
+        "m": 13,
+        "team": "Corée du Sud",
+        "p": "H. Son"
+      },
+      {
+        "t": "goal",
+        "m": 55,
+        "team": "Corée du Sud",
+        "p": "K. Hwang"
+      },
+      {
+        "t": "goal",
+        "m": 78,
+        "team": "Tchéquie",
+        "p": "P. Schick"
+      }
     ],
     "Canada_Bosnie-Herzégovine": [
-      { "t": "goal", "m": 76, "team": "Canada", "p": "C. Larin" },
-      { "t": "goal", "m": 84, "team": "Bosnie-Herzégovine", "p": "E. Dzeko" }
+      {
+        "t": "goal",
+        "m": 76,
+        "team": "Canada",
+        "p": "C. Larin"
+      },
+      {
+        "t": "goal",
+        "m": 84,
+        "team": "Bosnie-Herzégovine",
+        "p": "E. Dzeko"
+      }
     ],
     "États-Unis_Paraguay": [
-      { "t": "goal", "m": 9, "team": "États-Unis", "p": "C. Pulisic" },
-      { "t": "goal", "m": 34, "team": "États-Unis", "p": "F. Balogun" },
-      { "t": "goal", "m": 61, "team": "États-Unis", "p": "F. Balogun" },
-      { "t": "goal", "m": 72, "team": "Paraguay", "p": "Mauricio" },
-      { "t": "goal", "m": 90, "x": 2, "team": "États-Unis", "p": "G. Reyna" }
+      {
+        "t": "goal",
+        "m": 9,
+        "team": "États-Unis",
+        "p": "C. Pulisic"
+      },
+      {
+        "t": "goal",
+        "m": 34,
+        "team": "États-Unis",
+        "p": "F. Balogun"
+      },
+      {
+        "t": "goal",
+        "m": 61,
+        "team": "États-Unis",
+        "p": "F. Balogun"
+      },
+      {
+        "t": "goal",
+        "m": 72,
+        "team": "Paraguay",
+        "p": "Mauricio"
+      },
+      {
+        "t": "goal",
+        "m": 90,
+        "x": 2,
+        "team": "États-Unis",
+        "p": "G. Reyna"
+      }
     ],
     "Qatar_Suisse": [
-      { "t": "goal", "m": 17, "team": "Suisse", "p": "B. Embolo", "d": "Penalty" },
-      { "t": "goal", "m": 90, "x": 5, "team": "Qatar", "p": "B. Khoukhi", "a": "H. Ahmed" }
+      {
+        "t": "goal",
+        "m": 17,
+        "team": "Suisse",
+        "p": "B. Embolo",
+        "d": "Penalty"
+      },
+      {
+        "t": "goal",
+        "m": 90,
+        "x": 5,
+        "team": "Qatar",
+        "p": "B. Khoukhi",
+        "a": "H. Ahmed"
+      }
     ],
     "Brésil_Maroc": [
-      { "t": "goal", "m": 36, "team": "Maroc", "p": "I. Saibari" },
-      { "t": "goal", "m": 67, "team": "Brésil", "p": "Vinicius Jr." }
+      {
+        "t": "goal",
+        "m": 36,
+        "team": "Maroc",
+        "p": "I. Saibari"
+      },
+      {
+        "t": "goal",
+        "m": 67,
+        "team": "Brésil",
+        "p": "Vinicius Jr."
+      }
     ]
   }
 }
