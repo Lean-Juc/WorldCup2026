@@ -1,7 +1,7 @@
 {
-  "updated": "2026-06-14T14:00:00.000Z",
+  "updated": "2026-06-14T22:30:00.000Z",
   "source": "manual",
-  "count": 8,
+  "count": 9,
   "results": {
     "Mexique_Afrique du Sud": [2, 0],
     "Corée du Sud_Tchéquie": [2, 1],
@@ -10,7 +10,8 @@
     "Qatar_Suisse": [1, 1],
     "Brésil_Maroc": [1, 1],
     "Haïti_Écosse": [0, 1],
-    "Australie_Turquie": [2, 0]
+    "Australie_Turquie": [2, 0],
+    "Allemagne_Curaçao": [7, 1]
   },
   "events": {
     "Mexique_Afrique du Sud": [
@@ -47,6 +48,16 @@
     "Australie_Turquie": [
       { "t": "goal", "m": 22, "team": "Australie", "p": "N. Irankunda" },
       { "t": "goal", "m": 71, "team": "Australie", "p": "M. Leckie" }
+    ],
+    "Allemagne_Curaçao": [
+      { "t": "goal", "m": 6, "team": "Allemagne", "p": "F. Nmecha" },
+      { "t": "goal", "m": 21, "team": "Curaçao", "p": "L. Comenencia" },
+      { "t": "goal", "m": 38, "team": "Allemagne", "p": "N. Schlotterbeck" },
+      { "t": "goal", "m": 45, "x": 5, "team": "Allemagne", "p": "K. Havertz", "d": "Penalty" },
+      { "t": "goal", "m": 47, "team": "Allemagne", "p": "J. Musiala" },
+      { "t": "goal", "m": 68, "team": "Allemagne", "p": "N. Brown" },
+      { "t": "goal", "m": 78, "team": "Allemagne", "p": "D. Undav", "a": "J. Kimmich" },
+      { "t": "goal", "m": 88, "team": "Allemagne", "p": "K. Havertz", "a": "D. Undav" }
     ]
   }
 }
