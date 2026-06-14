@@ -1,0 +1,18 @@
+{
+  "updated": "2026-06-13T23:00:00.000Z",
+  "source": "seed (replaced by GitHub Action once running)",
+  "count": 5,
+  "results": {
+    "Mexico_South Africa": [2, 0],
+    "South Korea_Czechia": [2, 1],
+    "Canada_Bosnia &amp; Herzegovina": [1, 1],
+    "USA_Paraguay": [4, 1],
+    "Qatar_Switzerland": [1, 1]
+  },
+  "events": {
+    "Qatar_Switzerland": [
+      { "t": "goal", "m": 17, "team": "Switzerland", "p": "B. Embolo", "d": "Penalty" },
+      { "t": "goal", "m": 90, "x": 5, "team": "Qatar", "p": "B. Khoukhi", "a": "H. Ahmed" }
+    ]
+  }
+}
