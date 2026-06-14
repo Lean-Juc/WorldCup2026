@@ -1,25 +1,43 @@
 {
-  "updated": "2026-06-14T01:23:23.732Z",
-  "source": "api-football",
-  "count": 0,
-  "results": {},
+  "updated": "2026-06-14T01:23:00.000Z",
+  "source": "manual",
+  "count": 6,
+  "results": {
+    "Mexico_South Africa": [2, 0],
+    "South Korea_Czechia": [2, 1],
+    "Canada_Bosnia &amp; Herzegovina": [1, 1],
+    "USA_Paraguay": [4, 1],
+    "Qatar_Switzerland": [1, 1],
+    "Brazil_Morocco": [1, 1]
+  },
   "events": {
+    "Mexico_South Africa": [
+      { "t": "goal", "m": 28, "team": "Mexico", "p": "H. Lozano" },
+      { "t": "goal", "m": 72, "team": "Mexico", "p": "R. Jiménez" }
+    ],
+    "South Korea_Czechia": [
+      { "t": "goal", "m": 13, "team": "South Korea", "p": "H. Son" },
+      { "t": "goal", "m": 55, "team": "South Korea", "p": "K. Hwang" },
+      { "t": "goal", "m": 78, "team": "Czechia", "p": "P. Schick" }
+    ],
+    "Canada_Bosnia &amp; Herzegovina": [
+      { "t": "goal", "m": 76, "team": "Canada", "p": "C. Larin" },
+      { "t": "goal", "m": 84, "team": "Bosnia &amp; Herzegovina", "p": "E. Dzeko" }
+    ],
+    "USA_Paraguay": [
+      { "t": "goal", "m": 9, "team": "USA", "p": "C. Pulisic" },
+      { "t": "goal", "m": 34, "team": "USA", "p": "F. Balogun" },
+      { "t": "goal", "m": 61, "team": "USA", "p": "F. Balogun" },
+      { "t": "goal", "m": 72, "team": "Paraguay", "p": "Mauricio" },
+      { "t": "goal", "m": 90, "x": 2, "team": "USA", "p": "G. Reyna" }
+    ],
     "Qatar_Switzerland": [
-      {
-        "t": "goal",
-        "m": 17,
-        "team": "Switzerland",
-        "p": "B. Embolo",
-        "d": "Penalty"
-      },
-      {
-        "t": "goal",
-        "m": 90,
-        "x": 5,
-        "team": "Qatar",
-        "p": "B. Khoukhi",
-        "a": "H. Ahmed"
-      }
+      { "t": "goal", "m": 17, "team": "Switzerland", "p": "B. Embolo", "d": "Penalty" },
+      { "t": "goal", "m": 90, "x": 5, "team": "Qatar", "p": "B. Khoukhi", "a": "H. Ahmed" }
+    ],
+    "Brazil_Morocco": [
+      { "t": "goal", "m": 36, "team": "Morocco", "p": "I. Saibari" },
+      { "t": "goal", "m": 67, "team": "Brazil", "p": "Vinicius Jr." }
     ]
   }
 }
