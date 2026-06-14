@@ -224,137 +224,128 @@
   <div class="wrap">
     <div class="kicker"><span class="kicker-dot"></span>FIFA World Cup 2026 · USA · Canada · Mexico</div>
     <h1>World Cup <span class="yr">2026</span></h1>
-    <p class="sub">All 104 matches in <b>Paris time (CEST)</b>. ET +6h — evening games land late at night. <span style="color:var(--gold)">Gold</span> = spills into next day.</p>
+    <p class="sub">Les 104 matchs en <b>heure de Paris (CEST)</b>. ET +6h — les matchs du soir tombent tard dans la nuit. <span style="color:var(--gold)">Or</span> = passe au lendemain.</p>
   </div>
 </header>
 
 <div class="wrap">
   <!-- TAB NAV -->
   <nav class="tabs" id="tabs">
-    <button class="tab on" data-tab="schedule">📅 Schedule</button>
-    <button class="tab" data-tab="standings">📊 Standings</button>
-    <button class="tab" data-tab="bracket">🏆 Bracket</button>
-    <button class="tab" data-tab="watch">📺 Watch free</button>
+    <button class="tab on" data-tab="schedule">📅 Calendrier</button>
+    <button class="tab" data-tab="standings">📊 Classements</button>
+    <button class="tab" data-tab="bracket">🏆 Tableau</button>
+    <button class="tab" data-tab="watch">📺 Regarder gratis</button>
   </nav>
 
   <!-- SCHEDULE PANEL -->
   <section class="panel on" id="tab-schedule">
-    <div class="controls">
-      <div class="filters">
-        <span class="lbl">Show</span>
-        <button class="chip on" data-f="all">All games</button>
-        <button class="chip fr" data-f="fr">🇫🇷 France</button>
-        <button class="chip ma" data-f="ma">🇲🇦 Morocco</button>
-        <button class="chip" data-f="free">Free in French (M6)</button>
-      </div>
-    </div>
     <div id="list"></div>
-    <div class="empty" id="empty">No matches match this filter.</div>
+    <div class="empty" id="empty">Aucun match trouvé.</div>
   </section>
 
   <!-- STANDINGS PANEL -->
   <section class="panel" id="tab-standings">
-    <h2 class="sec-head">Group Standings</h2>
-    <p class="sec-sub">Live after each match. Top 2 of every group <b style="color:var(--pitch)">qualify</b> for the Round of 32; the <b style="color:var(--gold)">8 best 3rd-placed</b> teams (of 12) also go through.</p>
+    <h2 class="sec-head">Classements de groupes</h2>
+    <p class="sec-sub">Mis à jour après chaque match. Les 2 premiers de chaque groupe <b style="color:var(--pitch)">se qualifient</b> pour les 32es de finale ; les <b style="color:var(--gold)">8 meilleurs 3es</b> (sur 12) passent également.</p>
     <div id="standings" class="tables"></div>
     <div class="qkey">
-      <span><span class="dot g"></span> Top 2 — qualify directly</span>
-      <span><span class="dot y"></span> 3rd — in the race for a best-third spot</span>
+      <span><span class="dot g"></span> Top 2 — qualifiés directement</span>
+      <span><span class="dot y"></span> 3e — en course pour une meilleure 3e place</span>
     </div>
   </section>
 
   <!-- BRACKET PANEL -->
   <section class="panel" id="tab-bracket">
-    <h2 class="sec-head">Knockout Bracket</h2>
-    <p class="sec-sub">The full path is fixed by group position (FIFA matches 73–104). Once groups finish on 27 June, each slot below fills with a team. The bracket splits into two halves that only meet in the final.</p>
+    <h2 class="sec-head">Tableau final</h2>
+    <p class="sec-sub">Le chemin est fixé par la position en groupe (matchs FIFA 73–104). Une fois les groupes terminés le 27 juin, chaque case se remplit. Le tableau se divise en deux moitiés qui ne se retrouvent qu'en finale.</p>
 
-    <h3 style="font-family:'Anton';font-weight:400;font-size:18px;letter-spacing:.03em;text-transform:uppercase;margin:6px 0 12px;color:var(--muted)">Where each group lands</h3>
+    <h3 style="font-family:'Anton';font-weight:400;font-size:18px;letter-spacing:.03em;text-transform:uppercase;margin:6px 0 12px;color:var(--muted)">Où atterrit chaque groupe</h3>
     <div id="destmap" class="destmap"></div>
 
     <div id="bracket" style="margin-top:30px"></div>
 
     <div class="final-row">
       <div class="finalcard">
-        <div class="fl-h">3rd place</div>
-        <div class="fl-d">Sat 18 Jul · Loser SF1 vs Loser SF2 · Miami · ~22:00 Paris</div>
+        <div class="fl-h">3e place</div>
+        <div class="fl-d">Sam 18 Jul · Perdant SF1 vs Perdant SF2 · Miami · ~22:00 Paris</div>
       </div>
       <div class="finalcard">
-        <div class="fl-h">🏆 Final</div>
-        <div class="fl-d"><b style="color:var(--pitch)">Free on M6 🇫🇷.</b> Sun 19 Jul · Winner SF1 vs Winner SF2 · MetLife, NY/NJ · 21:00 Paris</div>
+        <div class="fl-h">🏆 Finale</div>
+        <div class="fl-d"><b style="color:var(--pitch)">Gratuit sur M6 🇫🇷.</b> Dim 19 Jul · Vainqueur SF1 vs Vainqueur SF2 · MetLife, NY/NJ · 21:00 Paris</div>
       </div>
     </div>
   </section>
 
   <!-- WATCH PANEL -->
   <section class="panel" id="tab-watch">
-    <h2 class="sec-head">Watch free</h2>
-    <p class="sec-sub">With a VPN, every match is free in French and English. Each fixture row in the Schedule tab also shows its channel per language.</p>
+    <h2 class="sec-head">Regarder gratuitement</h2>
+    <p class="sec-sub">Avec un VPN, chaque match est gratuit en français et en anglais. Chaque match dans l'onglet Calendrier indique aussi la chaîne par langue.</p>
     <div class="guide">
       <div class="gcard">
         <div class="lang"><span class="flag">🇫🇷</span> Français</div>
-        <p><b>M6 / M6+</b> in France = <b>54 matches</b> (all France games, opener, semis &amp; final). For the other ~50, VPN to <b>Belgium</b> (RTBF · La Une / Tipik / Auvio) or <b>Switzerland</b> (RTS · Play RTS) — both stream <b>all 104 free</b> in French.</p>
-        <span class="tag free">All 104 free · VPN BE/CH</span>
+        <p><b>M6 / M6+</b> depuis la France = <b>54 matchs</b> (tous les matchs de la France, l'ouverture, les demies &amp; la finale). Pour les ~50 autres, VPN sur la <b>Belgique</b> (RTBF · La Une / Tipik / Auvio) ou la <b>Suisse</b> (RTS · Play RTS) — les 104 matchs gratuitement en français.</p>
+        <span class="tag free">104 matchs gratuits · VPN BE/CH</span>
       </div>
       <div class="gcard">
-        <div class="lang"><span class="flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span> English</div>
-        <p><b>BBC</b> (iPlayer) &amp; <b>ITV</b> (ITVX) show <b>all 104</b> free — UK-only, so VPN to a <b>UK server</b>. Backups: Australia's <b>SBS On Demand</b> &amp; Ireland's <b>RTÉ Player</b>, also free.</p>
-        <span class="tag free">All 104 free · VPN UK</span>
+        <div class="lang"><span class="flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span> Anglais</div>
+        <p><b>BBC</b> (iPlayer) &amp; <b>ITV</b> (ITVX) diffusent les <b>104 matchs</b> gratuitement — Royaume-Uni uniquement, donc VPN sur un <b>serveur UK</b>. Alternatives : <b>SBS On Demand</b> (Australie) &amp; <b>RTÉ Player</b> (Irlande).</p>
+        <span class="tag free">104 matchs gratuits · VPN UK</span>
       </div>
       <div class="gcard">
         <div class="lang"><span class="flag">🇸🇦</span> العربية</div>
-        <p>All 104 in Arabic on <b>beIN Sports</b> (subscription / TOD, MENA). Free only for select Maghreb games — Morocco's <b>SNRT</b>, Algeria's <b>ENTV</b>, Tunisia's <b>Watania</b> — via VPN to that country.</p>
-        <span class="tag warn">beIN paid · few free</span>
+        <p>Les 104 matchs en arabe sur <b>beIN Sports</b> (abonnement / TOD, MENA). Gratuit uniquement pour quelques matchs du Maghreb — <b>SNRT</b> (Maroc), <b>ENTV</b> (Algérie), <b>Watania</b> (Tunisie) — via VPN vers ces pays.</p>
+        <span class="tag warn">beIN payant · quelques matchs gratuits</span>
       </div>
     </div>
     <div class="note">
-      <b style="color:var(--pitch)">Reading the channels:</b> with a VPN, every match is <span class="yes-inline">free</span> in two languages — <span style="color:#9bb4ff">🇫🇷 French</span> on M6/M6+ (from France) or RTBF/RTS (VPN to Belgium / Switzerland), and <span>🏴󠁧󠁢󠁥󠁮󠁧󠁿 English</span> on BBC/ITV (VPN to the UK). <span style="color:#ff9aa6">🇸🇦 Arabic</span> runs on beIN Sports (paid); only a few Maghreb games are free (SNRT etc.).
+      <b style="color:var(--pitch)">Les chaînes :</b> avec un VPN, chaque match est <span class="yes-inline">gratuit</span> en deux langues — <span style="color:#9bb4ff">🇫🇷 Français</span> sur M6/M6+ (depuis la France) ou RTBF/RTS (VPN Belgique / Suisse), et <span>🏴󠁧󠁢󠁥󠁮󠁧󠁿 Anglais</span> sur BBC/ITV (VPN UK). <span style="color:#ff9aa6">🇸🇦 Arabe</span> sur beIN Sports (payant) ; quelques matchs du Maghreb gratuits (SNRT etc.).
     </div>
   </section>
 
-  <footer id="foot">Results as of Sun 14 Jun, ~01:00 Paris — 5 group games final. Times CEST (UTC+2) · ET +6h · knockout slots fill after 27 June · subject to FIFA changes</footer>
+  <footer id="foot">Résultats au dim 14 juin, ~01h00 Paris — 5 matchs de groupe terminés. Heures CEST (UTC+2) · ET +6h · cases du tableau final après le 27 juin · sous réserve de modifications FIFA</footer>
 </div>
 
 <script>
 // flags: fr = free on M6 (French), ma = free on SNRT (Morocco), gold = lands next-day/small hours
 const M = [
   // Paris day, dow, [time, t1, t2, group, fr, ma, late]
-  ["Thu 11 Jun","Thursday",[["21:00","Mexico","South Africa","A · OPENER",1,0,0]]],
-  ["Fri 12 Jun","Friday",[["04:00","South Korea","Czechia","A",0,0,1],["21:00","Canada","Bosnia &amp; Herzegovina","B",0,0,0]]],
-  ["Sat 13 Jun","Saturday",[["03:00","USA","Paraguay","D",0,0,1],["21:00","Qatar","Switzerland","B",0,0,0]]],
-  ["Sun 14 Jun","Sunday",[["00:00","Brazil","Morocco","C",0,1,1],["03:00","Haiti","Scotland","C",0,0,1],["06:00","Australia","Türkiye","D",0,0,1],["19:00","Germany","Curaçao","E",0,0,0],["22:00","Netherlands","Japan","F",0,0,0]]],
-  ["Mon 15 Jun","Monday",[["01:00","Ivory Coast","Ecuador","E",0,0,1],["04:00","Tunisia","Sweden","F",0,0,1],["18:00","Spain","Cape Verde","H",0,0,0],["21:00","Belgium","Egypt","G",0,0,0]]],
-  ["Tue 16 Jun","Tuesday",[["00:00","Saudi Arabia","Uruguay","H",0,0,1],["03:00","Iran","New Zealand","G",0,0,1],["21:00","France","Senegal","I",1,0,0]]],
-  ["Wed 17 Jun","Wednesday",[["00:00","Iraq","Norway","I",0,0,1],["03:00","Argentina","Algeria","J",0,0,1],["06:00","Austria","Jordan","J",0,0,1],["19:00","Portugal","Congo DR","K",0,0,0],["22:00","England","Croatia","L",0,0,0]]],
-  ["Thu 18 Jun","Thursday",[["01:00","Ghana","Panama","L",0,0,1],["04:00","Uzbekistan","Colombia","K",0,0,1],["18:00","Czechia","South Africa","A",0,0,0],["21:00","Switzerland","Bosnia &amp; Herzegovina","B",0,0,0]]],
-  ["Fri 19 Jun","Friday",[["00:00","Canada","Qatar","B",0,0,1],["03:00","Mexico","South Korea","A",0,0,1],["21:00","USA","Australia","D",0,0,0],["21:00","Scotland","Morocco","C",0,1,0]]],
-  ["Sat 20 Jun","Saturday",[["03:00","Brazil","Haiti","C",0,0,1],["06:00","Türkiye","Paraguay","D",0,0,1],["19:00","Netherlands","Sweden","F",0,0,0],["22:00","Germany","Ivory Coast","E",0,0,0]]],
-  ["Sun 21 Jun","Sunday",[["02:00","Ecuador","Curaçao","E",0,0,1],["06:00","Tunisia","Japan","F",0,0,1],["18:00","Spain","Saudi Arabia","H",0,0,0],["21:00","Belgium","Iran","G",0,0,0]]],
-  ["Mon 22 Jun","Monday",[["00:00","Uruguay","Cape Verde","H",0,0,1],["03:00","New Zealand","Egypt","G",0,0,1],["19:00","Argentina","Austria","J",0,0,0],["23:00","France","Iraq","I",1,0,0]]],
-  ["Tue 23 Jun","Tuesday",[["02:00","Norway","Senegal","I",0,0,1],["05:00","Jordan","Algeria","J",0,0,1],["19:00","Portugal","Uzbekistan","K",0,0,0],["22:00","England","Ghana","L",0,0,0]]],
-  ["Wed 24 Jun","Wednesday",[["01:00","Panama","Croatia","L",0,0,1],["04:00","Colombia","Congo DR","K",0,0,1],["21:00","Switzerland","Canada","B",0,0,0],["21:00","Bosnia &amp; Herzegovina","Qatar","B",0,0,0]]],
-  ["Thu 25 Jun","Thursday",[["00:00","Brazil","Scotland","C",0,0,1],["00:00","Morocco","Haiti","C",0,1,1],["03:00","Mexico","Czechia","A",0,0,1],["03:00","South Korea","South Africa","A",0,0,1],["22:00","Ecuador","Germany","E",0,0,0],["22:00","Curaçao","Ivory Coast","E",0,0,0]]],
-  ["Fri 26 Jun","Friday",[["01:00","Tunisia","Netherlands","F",0,0,1],["01:00","Japan","Sweden","F",0,0,1],["04:00","USA","Türkiye","D",0,0,1],["04:00","Paraguay","Australia","D",0,0,1],["21:00","Norway","France","I",1,0,0],["21:00","Senegal","Iraq","I",0,0,0]]],
-  ["Sat 27 Jun","Saturday",[["02:00","Uruguay","Spain","H",0,0,1],["02:00","Cape Verde","Saudi Arabia","H",0,0,1],["05:00","New Zealand","Belgium","G",0,0,1],["05:00","Egypt","Iran","G",0,0,1],["23:00","Panama","England","L",0,0,0],["23:00","Croatia","Ghana","L",0,0,0]]],
-  ["Sun 28 Jun","Sunday",[["01:30","Colombia","Portugal","K",0,0,1],["01:30","Congo DR","Uzbekistan","K",0,0,1],["04:00","Argentina","Jordan","J",0,0,1],["04:00","Algeria","Austria","J",0,0,1],["21:00","2nd Group A","2nd Group B","R32 · #73",0,0,0]]],
-  ["Mon 29 Jun","Monday",[["19:00","Winner Grp C","2nd Group F","R32 · #76",0,0,0],["22:30","Winner Grp E","Best 3rd (A/B/C/D/F)","R32 · #74",0,0,0]]],
-  ["Tue 30 Jun","Tuesday",[["03:00","Winner Grp F","2nd Group C","R32 · #75",0,0,1],["19:00","2nd Group E","2nd Group I","R32 · #78",0,0,0],["23:00","Winner Grp I","Best 3rd (C/D/F/G/H)","R32 · #77",0,0,0]]],
-  ["Wed 1 Jul","Wednesday",[["03:00","Winner Grp A","Best 3rd (C/E/F/H/I)","R32 · #79",0,0,1],["18:00","Winner Grp L","Best 3rd (E/H/I/J/K)","R32 · #80",0,0,0],["22:00","Winner Grp G","Best 3rd (A/E/H/I/J)","R32 · #82",0,0,0]]],
-  ["Thu 2 Jul","Thursday",[["02:00","Winner Grp D","Best 3rd (B/E/F/I/J)","R32 · #81",0,0,1],["21:00","Winner Grp H","2nd Group J","R32 · #84",0,0,0]]],
-  ["Fri 3 Jul","Friday",[["01:00","2nd Group K","2nd Group L","R32 · #83",0,0,1],["05:00","Winner Grp B","Best 3rd (E/F/G/I/J)","R32 · #85",0,0,1],["20:00","2nd Group D","2nd Group G","R32 · #88",0,0,0]]],
-  ["Sat 4 Jul","Saturday",[["00:00","Winner Grp J","2nd Group H","R32 · #86",0,0,1],["03:30","Winner Grp K","Best 3rd (D/E/I/J/L)","R32 · #87",0,0,1]]],
+  ["Jeu 11 Jun","Jeudi",[["21:00","Mexique","Afrique du Sud","A · OUVERTURE",1,0,0]]],
+  ["Ven 12 Jun","Vendredi",[["04:00","Corée du Sud","Tchéquie","A",0,0,1],["21:00","Canada","Bosnie-Herzégovine","B",0,0,0]]],
+  ["Sam 13 Jun","Samedi",[["03:00","États-Unis","Paraguay","D",0,0,1],["21:00","Qatar","Suisse","B",0,0,0]]],
+  ["Dim 14 Jun","Dimanche",[["00:00","Brésil","Maroc","C",0,1,1],["03:00","Haïti","Écosse","C",0,0,1],["06:00","Australie","Turquie","D",0,0,1],["19:00","Allemagne","Curaçao","E",0,0,0],["22:00","Pays-Bas","Japon","F",0,0,0]]],
+  ["Lun 15 Jun","Lundi",[["01:00","Côte d'Ivoire","Équateur","E",0,0,1],["04:00","Tunisie","Suède","F",0,0,1],["18:00","Espagne","Cap-Vert","H",0,0,0],["21:00","Belgique","Égypte","G",0,0,0]]],
+  ["Mar 16 Jun","Mardi",[["00:00","Arabie Saoudite","Uruguay","H",0,0,1],["03:00","Iran","Nouvelle-Zélande","G",0,0,1],["21:00","France","Sénégal","I",1,0,0]]],
+  ["Mer 17 Jun","Mercredi",[["00:00","Irak","Norvège","I",0,0,1],["03:00","Argentine","Algérie","J",0,0,1],["06:00","Autriche","Jordanie","J",0,0,1],["19:00","Portugal","Congo RD","K",0,0,0],["22:00","Angleterre","Croatie","L",0,0,0]]],
+  ["Jeu 18 Jun","Jeudi",[["01:00","Ghana","Panama","L",0,0,1],["04:00","Ouzbékistan","Colombie","K",0,0,1],["18:00","Tchéquie","Afrique du Sud","A",0,0,0],["21:00","Suisse","Bosnie-Herzégovine","B",0,0,0]]],
+  ["Ven 19 Jun","Vendredi",[["00:00","Canada","Qatar","B",0,0,1],["03:00","Mexique","Corée du Sud","A",0,0,1],["21:00","États-Unis","Australie","D",0,0,0],["21:00","Écosse","Maroc","C",0,1,0]]],
+  ["Sam 20 Jun","Samedi",[["03:00","Brésil","Haïti","C",0,0,1],["06:00","Turquie","Paraguay","D",0,0,1],["19:00","Pays-Bas","Suède","F",0,0,0],["22:00","Allemagne","Côte d'Ivoire","E",0,0,0]]],
+  ["Dim 21 Jun","Dimanche",[["02:00","Équateur","Curaçao","E",0,0,1],["06:00","Tunisie","Japon","F",0,0,1],["18:00","Espagne","Arabie Saoudite","H",0,0,0],["21:00","Belgique","Iran","G",0,0,0]]],
+  ["Lun 22 Jun","Lundi",[["00:00","Uruguay","Cap-Vert","H",0,0,1],["03:00","Nouvelle-Zélande","Égypte","G",0,0,1],["19:00","Argentine","Autriche","J",0,0,0],["23:00","France","Irak","I",1,0,0]]],
+  ["Mar 23 Jun","Mardi",[["02:00","Norvège","Sénégal","I",0,0,1],["05:00","Jordanie","Algérie","J",0,0,1],["19:00","Portugal","Ouzbékistan","K",0,0,0],["22:00","Angleterre","Ghana","L",0,0,0]]],
+  ["Mer 24 Jun","Mercredi",[["01:00","Panama","Croatie","L",0,0,1],["04:00","Colombie","Congo RD","K",0,0,1],["21:00","Suisse","Canada","B",0,0,0],["21:00","Bosnie-Herzégovine","Qatar","B",0,0,0]]],
+  ["Jeu 25 Jun","Jeudi",[["00:00","Brésil","Écosse","C",0,0,1],["00:00","Maroc","Haïti","C",0,1,1],["03:00","Mexique","Tchéquie","A",0,0,1],["03:00","Corée du Sud","Afrique du Sud","A",0,0,1],["22:00","Équateur","Allemagne","E",0,0,0],["22:00","Curaçao","Côte d'Ivoire","E",0,0,0]]],
+  ["Ven 26 Jun","Vendredi",[["01:00","Tunisie","Pays-Bas","F",0,0,1],["01:00","Japon","Suède","F",0,0,1],["04:00","États-Unis","Turquie","D",0,0,1],["04:00","Paraguay","Australie","D",0,0,1],["21:00","Norvège","France","I",1,0,0],["21:00","Sénégal","Irak","I",0,0,0]]],
+  ["Sam 27 Jun","Samedi",[["02:00","Uruguay","Espagne","H",0,0,1],["02:00","Cap-Vert","Arabie Saoudite","H",0,0,1],["05:00","Nouvelle-Zélande","Belgique","G",0,0,1],["05:00","Égypte","Iran","G",0,0,1],["23:00","Panama","Angleterre","L",0,0,0],["23:00","Croatie","Ghana","L",0,0,0]]],
+  ["Dim 28 Jun","Dimanche",[["01:30","Colombie","Portugal","K",0,0,1],["01:30","Congo RD","Ouzbékistan","K",0,0,1],["04:00","Argentine","Jordanie","J",0,0,1],["04:00","Algérie","Autriche","J",0,0,1],["21:00","2e Grp A","2e Grp B","32e · #73",0,0,0]]],
+  ["Lun 29 Jun","Lundi",[["19:00","1er Grp C","2e Grp F","32e · #76",0,0,0],["22:30","1er Grp E","Meilleur 3e (A/B/C/D/F)","32e · #74",0,0,0]]],
+  ["Mar 30 Jun","Mardi",[["03:00","1er Grp F","2e Grp C","32e · #75",0,0,1],["19:00","2e Grp E","2e Grp I","32e · #78",0,0,0],["23:00","1er Grp I","Meilleur 3e (C/D/F/G/H)","32e · #77",0,0,0]]],
+  ["Mer 1 Jul","Mercredi",[["03:00","1er Grp A","Meilleur 3e (C/E/F/H/I)","32e · #79",0,0,1],["18:00","1er Grp L","Meilleur 3e (E/H/I/J/K)","32e · #80",0,0,0],["22:00","1er Grp G","Meilleur 3e (A/E/H/I/J)","32e · #82",0,0,0]]],
+  ["Jeu 2 Jul","Jeudi",[["02:00","1er Grp D","Meilleur 3e (B/E/F/I/J)","32e · #81",0,0,1],["21:00","1er Grp H","2e Grp J","32e · #84",0,0,0]]],
+  ["Ven 3 Jul","Vendredi",[["01:00","2e Grp K","2e Grp L","32e · #83",0,0,1],["05:00","1er Grp B","Meilleur 3e (E/F/G/I/J)","32e · #85",0,0,1],["20:00","2e Grp D","2e Grp G","32e · #88",0,0,0]]],
+  ["Sam 4 Jul","Samedi",[["00:00","1er Grp J","2e Grp H","32e · #86",0,0,1],["03:30","1er Grp K","Meilleur 3e (D/E/I/J/L)","32e · #87",0,0,1]]],
 ];
 
 const FLAG = {
-  "Mexico":"🇲🇽","South Africa":"🇿🇦","South Korea":"🇰🇷","Czechia":"🇨🇿",
-  "Canada":"🇨🇦","Bosnia &amp; Herzegovina":"🇧🇦","USA":"🇺🇸","Paraguay":"🇵🇾",
-  "Qatar":"🇶🇦","Switzerland":"🇨🇭","Brazil":"🇧🇷","Morocco":"🇲🇦","Haiti":"🇭🇹",
-  "Scotland":"🏴󠁧󠁢󠁳󠁣󠁴󠁿","Australia":"🇦🇺","Türkiye":"🇹🇷","Germany":"🇩🇪","Curaçao":"🇨🇼",
-  "Netherlands":"🇳🇱","Japan":"🇯🇵","Ivory Coast":"🇨🇮","Ecuador":"🇪🇨","Tunisia":"🇹🇳",
-  "Sweden":"🇸🇪","Spain":"🇪🇸","Cape Verde":"🇨🇻","Belgium":"🇧🇪","Egypt":"🇪🇬",
-  "Saudi Arabia":"🇸🇦","Uruguay":"🇺🇾","Iran":"🇮🇷","New Zealand":"🇳🇿","France":"🇫🇷",
-  "Senegal":"🇸🇳","Iraq":"🇮🇶","Norway":"🇳🇴","Argentina":"🇦🇷","Algeria":"🇩🇿",
-  "Austria":"🇦🇹","Jordan":"🇯🇴","Portugal":"🇵🇹","Congo DR":"🇨🇩","England":"🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-  "Croatia":"🇭🇷","Ghana":"🇬🇭","Panama":"🇵🇦","Uzbekistan":"🇺🇿","Colombia":"🇨🇴"
+  "Mexique":"🇲🇽","Afrique du Sud":"🇿🇦","Corée du Sud":"🇰🇷","Tchéquie":"🇨🇿",
+  "Canada":"🇨🇦","Bosnie-Herzégovine":"🇧🇦","États-Unis":"🇺🇸","Paraguay":"🇵🇾",
+  "Qatar":"🇶🇦","Suisse":"🇨🇭","Brésil":"🇧🇷","Maroc":"🇲🇦","Haïti":"🇭🇹",
+  "Écosse":"🏴󠁧󠁢󠁳󠁣󠁴󠁿","Australie":"🇦🇺","Turquie":"🇹🇷","Allemagne":"🇩🇪","Curaçao":"🇨🇼",
+  "Pays-Bas":"🇳🇱","Japon":"🇯🇵","Côte d'Ivoire":"🇨🇮","Équateur":"🇪🇨","Tunisie":"🇹🇳",
+  "Suède":"🇸🇪","Espagne":"🇪🇸","Cap-Vert":"🇨🇻","Belgique":"🇧🇪","Égypte":"🇪🇬",
+  "Arabie Saoudite":"🇸🇦","Uruguay":"🇺🇾","Iran":"🇮🇷","Nouvelle-Zélande":"🇳🇿","France":"🇫🇷",
+  "Sénégal":"🇸🇳","Irak":"🇮🇶","Norvège":"🇳🇴","Argentine":"🇦🇷","Algérie":"🇩🇿",
+  "Autriche":"🇦🇹","Jordanie":"🇯🇴","Portugal":"🇵🇹","Congo RD":"🇨🇩","Angleterre":"🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+  "Croatie":"🇭🇷","Ghana":"🇬🇭","Panama":"🇵🇦","Ouzbékistan":"🇺🇿","Colombie":"🇨🇴"
 };
 const flag = t => FLAG[t] ? `<span class="fl">${FLAG[t]}</span>` : '';
 
@@ -362,11 +353,11 @@ const flag = t => FLAG[t] ? `<span class="fl">${FLAG[t]}</span>` : '';
 // Baked-in fallback so the file works offline / opened locally. When hosted,
 // data.json (written by the GitHub Action) overrides this on load.
 let RESULTS = {
-  "Mexico_South Africa":[2,0],
-  "South Korea_Czechia":[2,1],
-  "Canada_Bosnia &amp; Herzegovina":[1,1],
-  "USA_Paraguay":[4,1],
-  "Qatar_Switzerland":[1,1]
+  "Mexique_Afrique du Sud":[2,0],
+  "Corée du Sud_Tchéquie":[2,1],
+  "Canada_Bosnie-Herzégovine":[1,1],
+  "États-Unis_Paraguay":[4,1],
+  "Qatar_Suisse":[1,1]
 };
 // order-independent score lookup (API may list home/away either way)
 function score(t1,t2){
@@ -380,15 +371,15 @@ function score(t1,t2){
 // Seeded with the real Qatar–Switzerland goals so the expand UI has a demo.
 // shape: { "Home_Away": [ {t:'goal'|'yellow'|'red', m:min, x:extra?, team, p:player, a:assist?, d:detail?} ] }
 let EVENTS = {
-  "Qatar_Switzerland":[
-    {t:"goal",m:17,team:"Switzerland",p:"B. Embolo",d:"Penalty"},
+  "Qatar_Suisse":[
+    {t:"goal",m:17,team:"Suisse",p:"B. Embolo",d:"Penalty"},
     {t:"goal",m:90,x:5,team:"Qatar",p:"B. Khoukhi",a:"H. Ahmed"}
   ]
 };
 function eventsFor(t1,t2){ return EVENTS[t1+'_'+t2] || EVENTS[t2+'_'+t1] || null; }
 function timeline(t1,t2){
   const ev=eventsFor(t1,t2);
-  if(!ev||!ev.length) return `<div class="ev-empty">Event detail fills in from the API once the updater runs.</div>`;
+  if(!ev||!ev.length) return `<div class="ev-empty">Détails du match disponibles après mise à jour.</div>`;
   const ic={goal:'⚽',yellow:'🟨',red:'🟥'};
   return [...ev].sort((a,b)=>(a.m-b.m)||((a.x||0)-(b.x||0))).map(e=>{
     const min=`${e.m}${e.x?'+'+e.x:''}'`;
@@ -400,18 +391,18 @@ function timeline(t1,t2){
 
 // ---- GROUP MEMBERSHIP -------------------------------------------------------
 const GROUPS = {
-  A:["Mexico","South Africa","South Korea","Czechia"],
-  B:["Canada","Bosnia &amp; Herzegovina","Qatar","Switzerland"],
-  C:["Brazil","Morocco","Haiti","Scotland"],
-  D:["USA","Paraguay","Australia","Türkiye"],
-  E:["Germany","Curaçao","Ivory Coast","Ecuador"],
-  F:["Netherlands","Japan","Tunisia","Sweden"],
-  G:["Belgium","Egypt","Iran","New Zealand"],
-  H:["Spain","Cape Verde","Saudi Arabia","Uruguay"],
-  I:["France","Senegal","Iraq","Norway"],
-  J:["Argentina","Algeria","Austria","Jordan"],
-  K:["Portugal","Congo DR","Uzbekistan","Colombia"],
-  L:["England","Croatia","Ghana","Panama"]
+  A:["Mexique","Afrique du Sud","Corée du Sud","Tchéquie"],
+  B:["Canada","Bosnie-Herzégovine","Qatar","Suisse"],
+  C:["Brésil","Maroc","Haïti","Écosse"],
+  D:["États-Unis","Paraguay","Australie","Turquie"],
+  E:["Allemagne","Curaçao","Côte d'Ivoire","Équateur"],
+  F:["Pays-Bas","Japon","Tunisie","Suède"],
+  G:["Belgique","Égypte","Iran","Nouvelle-Zélande"],
+  H:["Espagne","Cap-Vert","Arabie Saoudite","Uruguay"],
+  I:["France","Sénégal","Irak","Norvège"],
+  J:["Argentine","Algérie","Autriche","Jordanie"],
+  K:["Portugal","Congo RD","Ouzbékistan","Colombie"],
+  L:["Angleterre","Croatie","Ghana","Panama"]
 };
 
 function standings(letter){
@@ -446,8 +437,8 @@ function renderStandings(){
     });
     const div=document.createElement('div');
     div.className='gtable';
-    div.innerHTML=`<h3><span class="gl">${letter}</span> Group ${letter}<span class="pl">${played?'live':'–'}</span></h3>
-      <table><thead><tr><th class="tm">Team</th><th>P</th><th>W</th><th>D</th><th>GD</th><th>Pts</th></tr></thead><tbody>${rows}</tbody></table>`;
+    div.innerHTML=`<h3><span class="gl">${letter}</span> Group ${letter}<span class="pl">${played?'en cours':'–'}</span></h3>
+      <table><thead><tr><th class="tm">Équipe</th><th>J</th><th>V</th><th>N</th><th>DB</th><th>Pts</th></tr></thead><tbody>${rows}</tbody></table>`;
     wrap.appendChild(div);
   });
 }
@@ -461,14 +452,14 @@ const R32 = {
 };
 const R16P={89:[74,77],90:[73,75],91:[76,78],92:[79,80],93:[83,84],94:[81,82],95:[86,88],96:[85,87]};
 const QF={
-  97:{name:'Quarter-final 97',meta:'9 Jul · Boston',r16:[89,90]},
-  98:{name:'Quarter-final 98',meta:'10 Jul · Los Angeles',r16:[93,94]},
-  99:{name:'Quarter-final 99',meta:'11 Jul · Miami',r16:[91,92]},
-  100:{name:'Quarter-final 100',meta:'11 Jul · Kansas City',r16:[95,96]}
+  97:{name:'Quart de finale 97',meta:'9 Jul · Boston',r16:[89,90]},
+  98:{name:'Quart de finale 98',meta:'10 Jul · Los Angeles',r16:[93,94]},
+  99:{name:'Quart de finale 99',meta:'11 Jul · Miami',r16:[91,92]},
+  100:{name:'Quart de finale 100',meta:'11 Jul · Kansas City',r16:[95,96]}
 };
 const HALVES=[
-  {h:'Top half → Semi-final 1',meta:'SF1 · 14 Jul · Dallas',qfs:[97,98]},
-  {h:'Bottom half → Semi-final 2',meta:'SF2 · 15 Jul · Atlanta',qfs:[99,100]}
+  {h:'Moitié haute → Demi-finale 1',meta:'DF1 · 14 Jul · Dallas',qfs:[97,98]},
+  {h:'Moitié basse → Demi-finale 2',meta:'DF2 · 15 Jul · Atlanta',qfs:[99,100]}
 ];
 const DEST={
   A:{w:['#79','bot'],r:['#73','top']}, B:{w:['#85','bot'],r:['#73','top']},
@@ -492,7 +483,7 @@ function renderBracket(){
       let cards='';
       qf.r16.forEach(rm=>{
         const [ra,rb]=R16P[rm];
-        cards+=`<div class="r16card"><div class="rl">Round of 16 · M${rm} → QF${q}</div>${r32line(ra)}<div style="height:7px"></div>${r32line(rb)}</div>`;
+        cards+=`<div class="r16card"><div class="rl">16es · M${rm} → QF${q}</div>${r32line(ra)}<div style="height:7px"></div>${r32line(rb)}</div>`;
       });
       qfHtml+=`<div class="qf"><div class="qf-h"><span>${qf.name}</span><span>${qf.meta}</span></div><div class="r16">${cards}</div></div>`;
     });
@@ -506,13 +497,13 @@ function renderDest(){
   const wrap=document.getElementById('destmap');
   Object.keys(DEST).forEach(g=>{
     const d=DEST[g];
-    const lab=s=>s==='top'?'<span class="top">top half</span>':'<span class="bot">bottom half</span>';
+    const lab=s=>s==='top'?'<span class="top">moitié haute</span>':'<span class="bot">moitié basse</span>';
     const div=document.createElement('div');
     div.className='destcard';
-    div.innerHTML=`<h4>Group ${g}</h4>
-      <div class="drow"><span>🥇 Winner</span><b>R32 ${d.w[0]} · ${lab(d.w[1])}</b></div>
-      <div class="drow"><span>🥈 2nd</span><b>R32 ${d.r[0]} · ${lab(d.r[1])}</b></div>
-      <div class="drow"><span>🥉 3rd</span><b style="color:var(--muted);font-weight:400">if best-8 → varies</b></div>`;
+    div.innerHTML=`<h4>Groupe ${g}</h4>
+      <div class="drow"><span>🥇 1er</span><b>R32 ${d.w[0]} · ${lab(d.w[1])}</b></div>
+      <div class="drow"><span>🥈 2e</span><b>R32 ${d.r[0]} · ${lab(d.r[1])}</b></div>
+      <div class="drow"><span>🥉 3e</span><b style="color:var(--muted);font-weight:400">si meilleur 3e → variable</b></div>`;
     wrap.appendChild(div);
   });
 }
@@ -535,34 +526,34 @@ function render(filter){
     shown+=vis.length;
     const sec=document.createElement('div');
     sec.className='day';
-    sec.innerHTML=`<div class="dayhead"><span class="dow">${dow}</span><h2>${day}</h2><span class="cnt">${vis.length} match${vis.length>1?'es':''}</span></div>`;
+    sec.innerHTML=`<div class="dayhead"><span class="dow">${dow}</span><h2>${day}</h2><span class="cnt">${vis.length} match${vis.length>1?'s':''}</span></div>`;
     vis.forEach(m=>{
       const [time,t1,t2,grp,fr,ma,late]=m;
       const hl = fr?'hl-fr':(ma?'hl-ma':'');
       let badges='';
-      if(fr) badges+=`<span class="badge fr">🇫🇷 free on M6 / M6+</span>`;
-      if(ma) badges+=`<span class="badge ma">🇲🇦 free on SNRT</span>`;
+      if(fr) badges+=`<span class="badge fr">🇫🇷 gratuit M6 / M6+</span>`;
+      if(ma) badges+=`<span class="badge ma">🇲🇦 gratuit SNRT</span>`;
       let freecol;
       const frCh = fr ? `<span class="yes">M6 · M6+</span>` : `<span class="yes">RTBF · RTS</span>`;
       const enCh = `<span class="yes">BBC · ITV</span>`;
-      const arCh = ma ? `<span class="yes">SNRT</span>` : `beIN <span class="paid">paid</span>`;
+      const arCh = ma ? `<span class="yes">SNRT</span>` : `beIN <span class="paid">payant</span>`;
       freecol = `<span class="lg">🇫🇷</span> ${frCh}<br><span class="lg">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span> ${enCh}<br><span class="lg">🇸🇦</span> ${arCh}`;
-      const am = late?`<span class="am">next day</span>`:'';
+      const am = late?`<span class="am">lendemain</span>`:'';
       const sc = score(t1,t2);
       let teamsHtml, done='';
       if(sc){
         const [a,b]=sc; done=' done';
         const c1=a>b?'win':(a<b?'lose':''), c2=b>a?'win':(b<a?'lose':'');
-        teamsHtml=`${flag(t1)}<span class="${c1}">${t1}</span><span class="score">${a}–${b}</span>${flag(t2)}<span class="${c2}">${t2}</span><span class="ft">FT</span>`;
+        teamsHtml=`${flag(t1)}<span class="${c1}">${t1}</span><span class="score">${a}–${b}</span>${flag(t2)}<span class="${c2}">${t2}</span><span class="ft">FIN</span>`;
       } else {
-        teamsHtml=`${flag(t1)}${t1}<span class="vs">vs</span>${flag(t2)}${t2}`;
+        teamsHtml=`${flag(t1)}${t1}<span class="vs">-</span>${flag(t2)}${t2}`;
       }
-      const exp = sc?`<span class="exp"><span class="ar">▾</span> details</span>`:'';
+      const exp = sc?`<span class="exp"><span class="ar">▾</span> détails</span>`:'';
       sec.innerHTML+=`<div class="match ${hl}${done}">
         <div class="time">${time}${am}</div>
         <div>
           <div class="teams">${teamsHtml}</div>
-          <div class="meta"><span class="grp">Group ${grp}</span>${badges}${exp}</div>
+          <div class="meta"><span class="grp">Groupe ${grp}</span>${badges}${exp}</div>
         </div>
         <div class="free">${freecol}</div>
       </div>${sc?`<div class="details">${timeline(t1,t2)}</div>`:''}`;
@@ -572,15 +563,7 @@ function render(filter){
   empty.style.display = shown? 'none':'block';
 }
 
-document.querySelectorAll('.chip').forEach(c=>{
-  c.addEventListener('click',()=>{
-    document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));
-    c.classList.add('on');
-    render(c.dataset.f);
-  });
-});
-
-// click a finished match to expand its goal/card timeline
+render('all');
 list.addEventListener('click',e=>{
   const m=e.target.closest('.match.done');
   if(!m) return;
@@ -601,8 +584,7 @@ document.querySelectorAll('.tab').forEach(t=>{
 
 // ---- INITIAL RENDER ---------------------------------------------------------
 function rerender(){
-  const active=document.querySelector('.chip.on');
-  render(active?active.dataset.f:'all');
+  render('all');
   document.getElementById('standings').innerHTML='';
   renderStandings();
 }
@@ -622,7 +604,7 @@ renderBracket();
     if(d&&(d.results||d.events)){ rerender(); }
     if(d&&d.updated){
       const when=new Date(d.updated).toLocaleString('en-GB',{timeZone:'Europe/Paris',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
-      document.getElementById('foot').innerHTML='🟢 Live data · updated '+when+' Paris · auto-refreshed from the football API · times CEST (UTC+2)';
+      document.getElementById('foot').innerHTML='🟢 Données live · màj '+when+' Paris · mis à jour auto · heures CEST (UTC+2)';
     }
   }catch(e){/* offline or opened via file:// — keep the baked-in results */}
 })();
