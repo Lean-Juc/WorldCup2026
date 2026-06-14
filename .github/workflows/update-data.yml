@@ -2,8 +2,7 @@ name: Update World Cup data
 
 on:
   schedule:
-    # Toutes les heures entre 0h et 3h UTC (2h-5h Paris) — matchs du soir US
-    - cron: "0 * * * *"
+    - cron: "*/30 * * * *"
   workflow_dispatch: {}
 
 permissions:
