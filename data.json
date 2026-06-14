@@ -1,7 +1,7 @@
 {
-  "updated": "2026-06-14T22:30:00.000Z",
+  "updated": "2026-06-14T23:00:00.000Z",
   "source": "manual",
-  "count": 9,
+  "count": 10,
   "results": {
     "Mexique_Afrique du Sud": [2, 0],
     "Corée du Sud_Tchéquie": [2, 1],
@@ -11,7 +11,8 @@
     "Brésil_Maroc": [1, 1],
     "Haïti_Écosse": [0, 1],
     "Australie_Turquie": [2, 0],
-    "Allemagne_Curaçao": [7, 1]
+    "Allemagne_Curaçao": [7, 1],
+    "Pays-Bas_Japon": [2, 2]
   },
   "events": {
     "Mexique_Afrique du Sud": [
@@ -58,6 +59,12 @@
       { "t": "goal", "m": 68, "team": "Allemagne", "p": "N. Brown" },
       { "t": "goal", "m": 78, "team": "Allemagne", "p": "D. Undav", "a": "J. Kimmich" },
       { "t": "goal", "m": 88, "team": "Allemagne", "p": "K. Havertz", "a": "D. Undav" }
+    ],
+    "Pays-Bas_Japon": [
+      { "t": "goal", "m": 50, "team": "Pays-Bas", "p": "V. van Dijk", "a": "R. Gravenberch" },
+      { "t": "goal", "m": 57, "team": "Japon", "p": "K. Nakamura" },
+      { "t": "goal", "m": 64, "team": "Pays-Bas", "p": "C. Summerville", "a": "R. Gravenberch" },
+      { "t": "goal", "m": 88, "team": "Japon", "p": "D. Kamada", "a": "K. Ogawa" }
     ]
   }
 }
