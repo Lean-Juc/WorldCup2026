@@ -1,14 +1,16 @@
 {
-  "updated": "2026-06-14T01:23:00.000Z",
+  "updated": "2026-06-14T14:00:00.000Z",
   "source": "manual",
-  "count": 6,
+  "count": 8,
   "results": {
     "Mexique_Afrique du Sud": [2, 0],
     "Corée du Sud_Tchéquie": [2, 1],
     "Canada_Bosnie-Herzégovine": [1, 1],
     "États-Unis_Paraguay": [4, 1],
     "Qatar_Suisse": [1, 1],
-    "Brésil_Maroc": [1, 1]
+    "Brésil_Maroc": [1, 1],
+    "Haïti_Écosse": [0, 1],
+    "Australie_Turquie": [2, 0]
   },
   "events": {
     "Mexique_Afrique du Sud": [
@@ -38,6 +40,13 @@
     "Brésil_Maroc": [
       { "t": "goal", "m": 36, "team": "Maroc", "p": "I. Saibari" },
       { "t": "goal", "m": 67, "team": "Brésil", "p": "Vinicius Jr." }
+    ],
+    "Haïti_Écosse": [
+      { "t": "goal", "m": 58, "team": "Écosse", "p": "A. Robertson" }
+    ],
+    "Australie_Turquie": [
+      { "t": "goal", "m": 22, "team": "Australie", "p": "N. Irankunda" },
+      { "t": "goal", "m": 71, "team": "Australie", "p": "M. Leckie" }
     ]
   }
 }
