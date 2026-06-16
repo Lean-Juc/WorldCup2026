@@ -4,7 +4,7 @@
  *
  * Sources tried in order:
  *  1. Sofascore public API (tournament 16, season 58210) — near real-time
- *  2. Wikipedia group stage page (fallback)
+ *  2. Wikipedia group stage page via action=raw (fallback)
  */
 
 const fs = require('node:fs');
@@ -60,7 +60,6 @@ const HEADERS = {
 // ── SOURCE 1: Sofascore — unique tournament 16, season 58210 ────────────────
 async function fetchSofascore() {
   const results = {};
-  const events = {};
   const bases = [
     'https://api.sofascore.com/api/v1',
     'https://www.sofascore.com/api/v1'
@@ -75,11 +74,11 @@ async function fetchSofascore() {
     for (const path of paths) {
       try {
         const res = await fetch(base + path, { headers: HEADERS });
-        console.log(`Sofascore ${base}${path} → ${res.status}`);
+        console.log(`Sofascore ${base}${path} -> ${res.status}`);
         if (!res.ok) continue;
         const data = await res.json();
         const evs = data?.events || [];
-        console.log(`  → ${evs.length} events`);
+        console.log(`  -> ${evs.length} events`);
         for (const ev of evs) {
           if (ev.status?.type !== 'finished') continue;
           const h = canon(ev.homeTeam?.name || '');
@@ -87,41 +86,38 @@ async function fetchSofascore() {
           const gh = ev.homeScore?.current;
           const ga = ev.awayScore?.current;
           if (h && a && gh !== undefined && ga !== undefined) {
-            const key = `${h}_${a}`;
-            results[key] = [gh, ga];
-            console.log(`  ✓ ${h} ${gh}-${ga} ${a}`);
+            results[`${h}_${a}`] = [gh, ga];
+            console.log(`  OK ${h} ${gh}-${ga} ${a}`);
           }
-        }
-        if (evs.length > 0) {
-          // got real data, no need to try other bases for this path type
         }
       } catch (e) {
         console.warn(`  Sofascore ${path} failed: ${e.message}`);
       }
     }
-    if (Object.keys(results).length > 0) break; // this base worked, skip the other
+    if (Object.keys(results).length > 0) break;
   }
 
-  return { results, events };
+  return results;
 }
 
-// ── SOURCE 2: Wikipedia (fallback) ───────────────────────────────────────────
+// ── SOURCE 2: Wikipedia via action=raw (fallback) ────────────────────────────
 async function fetchWikipedia() {
   const results = {};
   try {
-    const url = 'https://en.wikipedia.org/w/api.php?' + new URLSearchParams({
-      action: 'query', titles: '2026_FIFA_World_Cup_group_stage',
-      prop: 'revisions', rvprop: 'content', rvslots: 'main',
-      format: 'json', formatversion: '2'
-    });
+    const url = 'https://en.wikipedia.org/w/index.php?title=2026_FIFA_World_Cup_group_stage&action=raw';
     const res = await fetch(url, { headers: { 'User-Agent': HEADERS['User-Agent'] } });
-    console.log(`Wikipedia → ${res.status}`);
-    if (!res.ok) return results;
-    const json = await res.json();
-    const pages = json?.query?.pages;
-    const page = Array.isArray(pages) ? pages[0] : Object.values(pages || {})[0];
-    const wikitext = page?.revisions?.[0]?.slots?.main?.content || page?.revisions?.[0]?.content || '';
+    console.log(`Wikipedia (raw) -> ${res.status}`);
+    let wikitext = '';
+    if (res.ok) {
+      wikitext = await res.text();
+    } else {
+      const url2 = 'https://en.wikipedia.org/api/rest_v1/page/wikitext/2026_FIFA_World_Cup_group_stage';
+      const res2 = await fetch(url2, { headers: { 'User-Agent': HEADERS['User-Agent'] } });
+      console.log(`Wikipedia (rest_v1) -> ${res2.status}`);
+      if (res2.ok) wikitext = await res2.text();
+    }
     console.log(`Wikipedia content: ${wikitext.length} chars`);
+    if (wikitext.length > 0) console.log(`Wikipedia sample: ${wikitext.slice(0, 150).replace(/\n/g,' ')}`);
 
     const fbRe = /\{\{fb\|([A-Z]{2,3})\}\}\s*\|\|\s*(\d+)\s*[–\-]\s*(\d+)\s*\|\|\s*\{\{fb\|([A-Z]{2,3})\}\}/g;
     let m;
@@ -151,10 +147,10 @@ async function main() {
 
   console.log(`Previous: ${Object.keys(prevResults).length} matches`);
 
-  const [sofa, wiki] = await Promise.all([fetchSofascore(), fetchWikipedia()]);
+  const [sofaResults, wikiResults] = await Promise.all([fetchSofascore(), fetchWikipedia()]);
 
-  const merged = { ...wiki, ...sofa.results }; // sofascore wins on conflict
-  console.log(`Sofascore=${Object.keys(sofa.results).length}, Wiki=${Object.keys(wiki).length}, Merged=${Object.keys(merged).length}`);
+  const merged = { ...wikiResults, ...sofaResults };
+  console.log(`Sofascore=${Object.keys(sofaResults).length}, Wiki=${Object.keys(wikiResults).length}, Merged=${Object.keys(merged).length}`);
 
   const finalResults = Object.keys(merged).length >= Object.keys(prevResults).length
     ? merged : prevResults;
@@ -168,7 +164,7 @@ async function main() {
   };
 
   fs.writeFileSync('data.json', JSON.stringify(out, null, 2) + '\n');
-  console.log(`✅ Done — ${out.count} matches.`);
+  console.log(`Done -- ${out.count} matches.`);
   if (out.count === 0) { console.error('WARNING: 0 results'); process.exit(1); }
 }
 
