@@ -1,29 +1,27 @@
 /**
- * update-data.js — Multi-source scraper (BBC Sport + Wikipedia fallback)
- * No API key needed. Node 18+ (built-in fetch).
+ * update-data.js — Multi-source scraper, no API key needed.
+ * Node 18+ (built-in fetch).
  *
  * Sources tried in order:
- *  1. BBC Sport JSON API (scores within ~5 min of final whistle)
- *  2. Wikipedia group stage page (fallback, lags ~1-6h)
+ *  1. Sofascore public API (tournament 16, season 58210) — near real-time
+ *  2. Wikipedia group stage page (fallback)
  */
 
 const fs = require('node:fs');
 
-// ── Team name normalisation ───────────────────────────────────────────────────
 const NORM = {
-  // BBC → canonical French
   'mexico': 'Mexique', 'south africa': 'Afrique du Sud',
   'south korea': 'Corée du Sud', 'korea republic': 'Corée du Sud', 'republic of korea': 'Corée du Sud',
   'czechia': 'Tchéquie', 'czech republic': 'Tchéquie',
-  'canada': 'Canada', 'bosnia and herzegovina': 'Bosnie-Herzégovine', 'bosnia & herzegovina': 'Bosnie-Herzégovine',
+  'canada': 'Canada', 'bosnia and herzegovina': 'Bosnie-Herzégovine', 'bosnia & herzegovina': 'Bosnie-Herzégovine', 'bih': 'Bosnie-Herzégovine',
   'united states': 'États-Unis', 'usa': 'États-Unis', 'us': 'États-Unis',
   'paraguay': 'Paraguay', 'qatar': 'Qatar', 'switzerland': 'Suisse',
   'brazil': 'Brésil', 'morocco': 'Maroc', 'haiti': 'Haïti',
   'scotland': 'Écosse', 'australia': 'Australie',
-  'turkey': 'Turquie', 'türkiye': 'Turquie',
+  'turkey': 'Turquie', 'türkiye': 'Turquie', 'turkiye': 'Turquie',
   'germany': 'Allemagne', 'curaçao': 'Curaçao', 'curacao': 'Curaçao',
   'netherlands': 'Pays-Bas', 'holland': 'Pays-Bas', 'japan': 'Japon',
-  "ivory coast": "Côte d'Ivoire", "côte d'ivoire": "Côte d'Ivoire", "cote d'ivoire": "Côte d'Ivoire",
+  "ivory coast": "Côte d'Ivoire", "côte d'ivoire": "Côte d'Ivoire", "cote d'ivoire": "Côte d'Ivoire", "cote divoire": "Côte d'Ivoire",
   'ecuador': 'Équateur', 'tunisia': 'Tunisie', 'sweden': 'Suède',
   'spain': 'Espagne', 'cape verde': 'Cap-Vert',
   'belgium': 'Belgique', 'egypt': 'Égypte',
@@ -32,11 +30,13 @@ const NORM = {
   'france': 'France', 'senegal': 'Sénégal', 'iraq': 'Irak',
   'norway': 'Norvège', 'argentina': 'Argentine', 'algeria': 'Algérie',
   'austria': 'Autriche', 'jordan': 'Jordanie',
-  'portugal': 'Portugal', 'dr congo': 'Congo RD', 'democratic republic of congo': 'Congo RD',
+  'portugal': 'Portugal', 'dr congo': 'Congo RD', 'congo dr': 'Congo RD', 'democratic republic of congo': 'Congo RD',
   'england': 'Angleterre', 'croatia': 'Croatie',
   'ghana': 'Ghana', 'panama': 'Panama',
   'uzbekistan': 'Ouzbékistan', 'colombia': 'Colombie'
 };
+const canon = n => NORM[(n||'').trim().toLowerCase()] || (n||'').trim();
+
 const FIFA_CODE = {
   MEX:'Mexique',RSA:'Afrique du Sud',KOR:'Corée du Sud',CZE:'Tchéquie',
   CAN:'Canada',BIH:'Bosnie-Herzégovine',USA:'États-Unis',PAR:'Paraguay',
@@ -46,126 +46,66 @@ const FIFA_CODE = {
   ESP:'Espagne',CPV:'Cap-Vert',BEL:'Belgique',EGY:'Égypte',KSA:'Arabie Saoudite',
   URU:'Uruguay',IRN:'Iran',NZL:'Nouvelle-Zélande',FRA:'France',SEN:'Sénégal',
   IRQ:'Irak',NOR:'Norvège',ARG:'Argentine',ALG:'Algérie',AUT:'Autriche',
-  JOR:'Jordanie',POR:'Portugal',COD:'Congo RD',ENG:'Angleterre',CRO:'Croatie',
-  GHA:'Ghana',PAN:'Panama',UZB:'Ouzbékistan',COL:'Colombie'
+  JOR:'Jordanie',POR:'Portugal',COD:'Congo RD',DCO:'Congo RD',ENG:'Angleterre',CRO:'Croatie',
+  GHA:'Ghana',PAN:'Panama',UZB:'Ouzbékistan',COL:'Colombie',DZA:'Algérie'
 };
-const canon = n => NORM[(n||'').trim().toLowerCase()] || (n||'').trim();
 
 const HEADERS = {
-  'User-Agent': 'Mozilla/5.0 (compatible; WC2026-tracker/2.0; +https://github.com/Lean-Juc/WorldCup2026)',
-  'Accept': 'application/json, text/html, */*',
-  'Accept-Language': 'en-GB,en;q=0.9'
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+  'Accept': 'application/json, text/plain, */*',
+  'Accept-Language': 'en-US,en;q=0.9',
+  'Referer': 'https://www.sofascore.com/'
 };
 
-// ── SOURCE 1 : BBC Sport live scores JSON ─────────────────────────────────────
-// BBC exposes a public JSON feed used by their scores page
-async function fetchBBC() {
-  const results = {};
-  // BBC Sport World Cup scores endpoint
-  const urls = [
-    'https://push.api.bbci.co.uk/p?m={"v":1,"e":"sport","q":{"competitions":["fifaworldcup2026"],"fixtures":"all"},"c":["f"]}',
-    'https://www.bbc.co.uk/sport/football/world-cup/scores-fixtures/2026',
-  ];
-
-  // Try the BBC scores page (HTML) and extract scores from JSON-LD or embedded data
-  try {
-    const res = await fetch('https://www.bbc.co.uk/sport/football/world-cup/scores-fixtures', {
-      headers: HEADERS
-    });
-    if (!res.ok) throw new Error(`BBC ${res.status}`);
-    const html = await res.text();
-
-    // BBC embeds scores in window.__INITIAL_DATA__ or similar JSON blobs
-    // Look for score patterns: "homeScore":{"score":7} etc.
-    const scoreBlocks = html.match(/"homeTeam":\{[^}]+\}[^}]+?"awayTeam":\{[^}]+\}/g) || [];
-
-    // Also try extracting from JSON-LD
-    const jsonLdMatch = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g) || [];
-
-    // Parse embedded __REDUX_STATE__ or __INITIAL_DATA__
-    const reduxMatch = html.match(/window\.__(?:REDUX_STATE|INITIAL_DATA)__\s*=\s*(\{[\s\S]*?\});\s*<\/script>/);
-    if (reduxMatch) {
-      try {
-        const data = JSON.parse(reduxMatch[1]);
-        extractFromBBCData(data, results);
-      } catch {}
-    }
-
-    console.log(`BBC HTML: ${html.length} chars, ${scoreBlocks.length} score blocks found`);
-  } catch (e) {
-    console.warn(`BBC fetch failed: ${e.message}`);
-  }
-
-  return results;
-}
-
-function extractFromBBCData(obj, results, depth = 0) {
-  if (!obj || typeof obj !== 'object' || depth > 12) return;
-  // Look for match objects with home/away scores
-  if (obj.homeTeam && obj.awayTeam &&
-      obj.homeTeam.name && obj.awayTeam.name &&
-      obj.homeScore !== undefined && obj.awayScore !== undefined) {
-    const h = canon(obj.homeTeam.name);
-    const a = canon(obj.awayTeam.name);
-    const gh = parseInt(obj.homeScore?.score ?? obj.homeScore);
-    const ga = parseInt(obj.awayScore?.score ?? obj.awayScore);
-    if (h && a && !isNaN(gh) && !isNaN(ga) && (obj.status === 'FT' || obj.status === 'RESULT' || obj.matchStatus === 'finished')) {
-      results[`${h}_${a}`] = [gh, ga];
-    }
-  }
-  for (const v of Object.values(obj)) {
-    if (v && typeof v === 'object') extractFromBBCData(v, results, depth + 1);
-  }
-}
-
-// ── SOURCE 2 : sofascore (public, no key) ────────────────────────────────────
+// ── SOURCE 1: Sofascore — unique tournament 16, season 58210 ────────────────
 async function fetchSofascore() {
   const results = {};
-  try {
-    // Sofascore public tournament endpoint for FIFA World Cup 2026
-    // Tournament ID 16 = FIFA World Cup, Season = 2026
-    const url = 'https://api.sofascore.com/api/v1/tournament/16/season/63814/events/last/0';
-    const res = await fetch(url, {
-      headers: { ...HEADERS, 'Referer': 'https://www.sofascore.com/' }
-    });
-    if (!res.ok) throw new Error(`Sofascore ${res.status}`);
-    const data = await res.json();
-    const events = data?.events || [];
-    console.log(`Sofascore: ${events.length} events`);
-    for (const ev of events) {
-      if (ev.status?.type !== 'finished') continue;
-      const h = canon(ev.homeTeam?.name || '');
-      const a = canon(ev.awayTeam?.name || '');
-      const gh = ev.homeScore?.current;
-      const ga = ev.awayScore?.current;
-      if (h && a && gh !== undefined && ga !== undefined) {
-        results[`${h}_${a}`] = [gh, ga];
-        console.log(`  ✓ ${h} ${gh}-${ga} ${a}`);
-      }
-    }
-    // Also fetch next page
-    const url2 = 'https://api.sofascore.com/api/v1/tournament/16/season/63814/events/next/0';
-    const res2 = await fetch(url2, { headers: { ...HEADERS, 'Referer': 'https://www.sofascore.com/' } });
-    if (res2.ok) {
-      const data2 = await res2.json();
-      for (const ev of (data2?.events || [])) {
-        if (ev.status?.type !== 'finished') continue;
-        const h = canon(ev.homeTeam?.name || '');
-        const a = canon(ev.awayTeam?.name || '');
-        const gh = ev.homeScore?.current;
-        const ga = ev.awayScore?.current;
-        if (h && a && gh !== undefined && ga !== undefined) {
-          results[`${h}_${a}`] = [gh, ga];
+  const events = {};
+  const bases = [
+    'https://api.sofascore.com/api/v1',
+    'https://www.sofascore.com/api/v1'
+  ];
+  const paths = [
+    '/unique-tournament/16/season/58210/events/last/0',
+    '/unique-tournament/16/season/58210/events/last/1',
+    '/unique-tournament/16/season/58210/events/last/2'
+  ];
+
+  for (const base of bases) {
+    for (const path of paths) {
+      try {
+        const res = await fetch(base + path, { headers: HEADERS });
+        console.log(`Sofascore ${base}${path} → ${res.status}`);
+        if (!res.ok) continue;
+        const data = await res.json();
+        const evs = data?.events || [];
+        console.log(`  → ${evs.length} events`);
+        for (const ev of evs) {
+          if (ev.status?.type !== 'finished') continue;
+          const h = canon(ev.homeTeam?.name || '');
+          const a = canon(ev.awayTeam?.name || '');
+          const gh = ev.homeScore?.current;
+          const ga = ev.awayScore?.current;
+          if (h && a && gh !== undefined && ga !== undefined) {
+            const key = `${h}_${a}`;
+            results[key] = [gh, ga];
+            console.log(`  ✓ ${h} ${gh}-${ga} ${a}`);
+          }
         }
+        if (evs.length > 0) {
+          // got real data, no need to try other bases for this path type
+        }
+      } catch (e) {
+        console.warn(`  Sofascore ${path} failed: ${e.message}`);
       }
     }
-  } catch (e) {
-    console.warn(`Sofascore failed: ${e.message}`);
+    if (Object.keys(results).length > 0) break; // this base worked, skip the other
   }
-  return results;
+
+  return { results, events };
 }
 
-// ── SOURCE 3 : Wikipedia (fallback) ──────────────────────────────────────────
+// ── SOURCE 2: Wikipedia (fallback) ───────────────────────────────────────────
 async function fetchWikipedia() {
   const results = {};
   try {
@@ -175,22 +115,20 @@ async function fetchWikipedia() {
       format: 'json', formatversion: '2'
     });
     const res = await fetch(url, { headers: { 'User-Agent': HEADERS['User-Agent'] } });
-    if (!res.ok) throw new Error(`Wikipedia ${res.status}`);
+    console.log(`Wikipedia → ${res.status}`);
+    if (!res.ok) return results;
     const json = await res.json();
     const pages = json?.query?.pages;
-    const wikitext = (Array.isArray(pages) ? pages[0] : Object.values(pages||{})[0])
-      ?.revisions?.[0]?.slots?.main?.content || '';
+    const page = Array.isArray(pages) ? pages[0] : Object.values(pages || {})[0];
+    const wikitext = page?.revisions?.[0]?.slots?.main?.content || page?.revisions?.[0]?.content || '';
+    console.log(`Wikipedia content: ${wikitext.length} chars`);
 
-    console.log(`Wikipedia: ${wikitext.length} chars`);
-
-    // {{fb|CODE}} table rows
     const fbRe = /\{\{fb\|([A-Z]{2,3})\}\}\s*\|\|\s*(\d+)\s*[–\-]\s*(\d+)\s*\|\|\s*\{\{fb\|([A-Z]{2,3})\}\}/g;
     let m;
     while ((m = fbRe.exec(wikitext)) !== null) {
       const h = FIFA_CODE[m[1]], a = FIFA_CODE[m[4]];
-      if (h && a) { results[`${h}_${a}`] = [+m[2], +m[3]]; }
+      if (h && a) results[`${h}_${a}`] = [+m[2], +m[3]];
     }
-    // {{fs match}} blocks
     const fsRe = /\{\{[Ff]s match[\s\S]*?\| *home *= *([^|\n}]+)[\s\S]*?\| *score *= *(\d+)[–\-](\d+)[\s\S]*?\| *away *= *([^|\n}]+)/g;
     while ((m = fsRe.exec(wikitext)) !== null) {
       const h = canon(m[1].replace(/\[\[.*?\|?(.*?)\]\]/g,'$1').trim());
@@ -211,20 +149,13 @@ async function main() {
   const prevResults = prev.results || {};
   const prevEvents  = prev.events  || {};
 
-  console.log(`Previous results: ${Object.keys(prevResults).length} matches`);
+  console.log(`Previous: ${Object.keys(prevResults).length} matches`);
 
-  // Try sources in parallel
-  const [bbcResults, sofaResults, wikiResults] = await Promise.all([
-    fetchBBC(),
-    fetchSofascore(),
-    fetchWikipedia()
-  ]);
+  const [sofa, wiki] = await Promise.all([fetchSofascore(), fetchWikipedia()]);
 
-  // Merge: sofascore > bbc > wikipedia (most reliable → least)
-  const merged = { ...wikiResults, ...bbcResults, ...sofaResults };
-  console.log(`Merged: BBC=${Object.keys(bbcResults).length}, Sofa=${Object.keys(sofaResults).length}, Wiki=${Object.keys(wikiResults).length}`);
+  const merged = { ...wiki, ...sofa.results }; // sofascore wins on conflict
+  console.log(`Sofascore=${Object.keys(sofa.results).length}, Wiki=${Object.keys(wiki).length}, Merged=${Object.keys(merged).length}`);
 
-  // Never go backwards
   const finalResults = Object.keys(merged).length >= Object.keys(prevResults).length
     ? merged : prevResults;
 
@@ -233,11 +164,11 @@ async function main() {
     source: 'auto',
     count: Object.keys(finalResults).length,
     results: finalResults,
-    events: prevEvents  // keep manual events intact
+    events: prevEvents
   };
 
   fs.writeFileSync('data.json', JSON.stringify(out, null, 2) + '\n');
-  console.log(`✅ Done — ${out.count} matches total.`);
+  console.log(`✅ Done — ${out.count} matches.`);
   if (out.count === 0) { console.error('WARNING: 0 results'); process.exit(1); }
 }
 
