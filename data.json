@@ -1,130 +1,531 @@
 {
-  "updated": "2026-06-17T16:00:00.000Z",
-  "source": "manual",
+  "updated": "2026-06-17T14:06:46.277Z",
+  "source": "auto",
   "count": 20,
   "results": {
-    "Mexique_Afrique du Sud": [2, 0],
-    "Corée du Sud_Tchéquie": [2, 1],
-    "Canada_Bosnie-Herzégovine": [1, 1],
-    "États-Unis_Paraguay": [4, 1],
-    "Qatar_Suisse": [1, 1],
-    "Brésil_Maroc": [1, 1],
-    "Haïti_Écosse": [0, 1],
-    "Australie_Turquie": [2, 0],
-    "Allemagne_Curaçao": [7, 1],
-    "Pays-Bas_Japon": [2, 2],
-    "Côte d'Ivoire_Équateur": [1, 0],
-    "Tunisie_Suède": [1, 5],
-    "Espagne_Cap-Vert": [0, 0],
-    "Belgique_Égypte": [1, 1],
-    "Arabie Saoudite_Uruguay": [1, 1],
-    "Iran_Nouvelle-Zélande": [2, 2],
-    "France_Sénégal": [3, 1],
-    "Irak_Norvège": [1, 4],
-    "Argentine_Algérie": [3, 0],
-    "Autriche_Jordanie": [3, 1]
+    "Mexique_Afrique du Sud": [
+      2,
+      0
+    ],
+    "Corée du Sud_Tchéquie": [
+      2,
+      1
+    ],
+    "Canada_Bosnie-Herzégovine": [
+      1,
+      1
+    ],
+    "États-Unis_Paraguay": [
+      4,
+      1
+    ],
+    "Qatar_Suisse": [
+      1,
+      1
+    ],
+    "Brésil_Maroc": [
+      1,
+      1
+    ],
+    "Haïti_Écosse": [
+      0,
+      1
+    ],
+    "Australie_Turquie": [
+      2,
+      0
+    ],
+    "Allemagne_Curaçao": [
+      7,
+      1
+    ],
+    "Pays-Bas_Japon": [
+      2,
+      2
+    ],
+    "Côte d'Ivoire_Équateur": [
+      1,
+      0
+    ],
+    "Tunisie_Suède": [
+      1,
+      5
+    ],
+    "Espagne_Cap-Vert": [
+      0,
+      0
+    ],
+    "Belgique_Égypte": [
+      1,
+      1
+    ],
+    "Arabie Saoudite_Uruguay": [
+      1,
+      1
+    ],
+    "Iran_Nouvelle-Zélande": [
+      2,
+      2
+    ],
+    "France_Sénégal": [
+      3,
+      1
+    ],
+    "Irak_Norvège": [
+      1,
+      4
+    ],
+    "Argentine_Algérie": [
+      3,
+      0
+    ],
+    "Autriche_Jordanie": [
+      3,
+      1
+    ]
   },
   "events": {
     "Mexique_Afrique du Sud": [
-      { "t": "goal", "m": 28, "team": "Mexique", "p": "H. Lozano" },
-      { "t": "goal", "m": 72, "team": "Mexique", "p": "R. Jiménez" }
+      {
+        "t": "goal",
+        "m": 28,
+        "team": "Mexique",
+        "p": "H. Lozano"
+      },
+      {
+        "t": "goal",
+        "m": 72,
+        "team": "Mexique",
+        "p": "R. Jiménez"
+      }
     ],
     "Corée du Sud_Tchéquie": [
-      { "t": "goal", "m": 13, "team": "Corée du Sud", "p": "H. Son" },
-      { "t": "goal", "m": 55, "team": "Corée du Sud", "p": "K. Hwang" },
-      { "t": "goal", "m": 78, "team": "Tchéquie", "p": "P. Schick" }
+      {
+        "t": "goal",
+        "m": 13,
+        "team": "Corée du Sud",
+        "p": "H. Son"
+      },
+      {
+        "t": "goal",
+        "m": 55,
+        "team": "Corée du Sud",
+        "p": "K. Hwang"
+      },
+      {
+        "t": "goal",
+        "m": 78,
+        "team": "Tchéquie",
+        "p": "P. Schick"
+      }
     ],
     "Canada_Bosnie-Herzégovine": [
-      { "t": "goal", "m": 76, "team": "Canada", "p": "C. Larin" },
-      { "t": "goal", "m": 84, "team": "Bosnie-Herzégovine", "p": "E. Dzeko" }
+      {
+        "t": "goal",
+        "m": 76,
+        "team": "Canada",
+        "p": "C. Larin"
+      },
+      {
+        "t": "goal",
+        "m": 84,
+        "team": "Bosnie-Herzégovine",
+        "p": "E. Dzeko"
+      }
     ],
     "États-Unis_Paraguay": [
-      { "t": "goal", "m": 9, "team": "États-Unis", "p": "C. Pulisic" },
-      { "t": "goal", "m": 34, "team": "États-Unis", "p": "F. Balogun" },
-      { "t": "goal", "m": 61, "team": "États-Unis", "p": "F. Balogun" },
-      { "t": "goal", "m": 72, "team": "Paraguay", "p": "Mauricio" },
-      { "t": "goal", "m": 90, "x": 2, "team": "États-Unis", "p": "G. Reyna" }
+      {
+        "t": "goal",
+        "m": 9,
+        "team": "États-Unis",
+        "p": "C. Pulisic"
+      },
+      {
+        "t": "goal",
+        "m": 34,
+        "team": "États-Unis",
+        "p": "F. Balogun"
+      },
+      {
+        "t": "goal",
+        "m": 61,
+        "team": "États-Unis",
+        "p": "F. Balogun"
+      },
+      {
+        "t": "goal",
+        "m": 72,
+        "team": "Paraguay",
+        "p": "Mauricio"
+      },
+      {
+        "t": "goal",
+        "m": 90,
+        "x": 2,
+        "team": "États-Unis",
+        "p": "G. Reyna"
+      }
     ],
     "Qatar_Suisse": [
-      { "t": "goal", "m": 17, "team": "Suisse", "p": "B. Embolo", "d": "Penalty" },
-      { "t": "goal", "m": 90, "x": 5, "team": "Qatar", "p": "B. Khoukhi", "a": "H. Ahmed" }
+      {
+        "t": "goal",
+        "m": 17,
+        "team": "Suisse",
+        "p": "B. Embolo",
+        "d": "Penalty"
+      },
+      {
+        "t": "goal",
+        "m": 90,
+        "x": 5,
+        "team": "Qatar",
+        "p": "B. Khoukhi",
+        "a": "H. Ahmed"
+      }
     ],
     "Brésil_Maroc": [
-      { "t": "goal", "m": 36, "team": "Maroc", "p": "I. Saibari" },
-      { "t": "goal", "m": 67, "team": "Brésil", "p": "Vinicius Jr." }
+      {
+        "t": "goal",
+        "m": 36,
+        "team": "Maroc",
+        "p": "I. Saibari"
+      },
+      {
+        "t": "goal",
+        "m": 67,
+        "team": "Brésil",
+        "p": "Vinicius Jr."
+      }
     ],
     "Haïti_Écosse": [
-      { "t": "goal", "m": 58, "team": "Écosse", "p": "A. Robertson" }
+      {
+        "t": "goal",
+        "m": 58,
+        "team": "Écosse",
+        "p": "A. Robertson"
+      }
     ],
     "Australie_Turquie": [
-      { "t": "goal", "m": 22, "team": "Australie", "p": "N. Irankunda" },
-      { "t": "goal", "m": 71, "team": "Australie", "p": "M. Leckie" }
+      {
+        "t": "goal",
+        "m": 22,
+        "team": "Australie",
+        "p": "N. Irankunda"
+      },
+      {
+        "t": "goal",
+        "m": 71,
+        "team": "Australie",
+        "p": "M. Leckie"
+      }
     ],
     "Allemagne_Curaçao": [
-      { "t": "goal", "m": 6, "team": "Allemagne", "p": "F. Nmecha" },
-      { "t": "goal", "m": 21, "team": "Curaçao", "p": "L. Comenencia" },
-      { "t": "goal", "m": 38, "team": "Allemagne", "p": "N. Schlotterbeck" },
-      { "t": "goal", "m": 45, "x": 5, "team": "Allemagne", "p": "K. Havertz", "d": "Penalty" },
-      { "t": "goal", "m": 47, "team": "Allemagne", "p": "J. Musiala" },
-      { "t": "goal", "m": 68, "team": "Allemagne", "p": "N. Brown" },
-      { "t": "goal", "m": 78, "team": "Allemagne", "p": "D. Undav", "a": "J. Kimmich" },
-      { "t": "goal", "m": 88, "team": "Allemagne", "p": "K. Havertz", "a": "D. Undav" }
+      {
+        "t": "goal",
+        "m": 6,
+        "team": "Allemagne",
+        "p": "F. Nmecha"
+      },
+      {
+        "t": "goal",
+        "m": 21,
+        "team": "Curaçao",
+        "p": "L. Comenencia"
+      },
+      {
+        "t": "goal",
+        "m": 38,
+        "team": "Allemagne",
+        "p": "N. Schlotterbeck"
+      },
+      {
+        "t": "goal",
+        "m": 45,
+        "x": 5,
+        "team": "Allemagne",
+        "p": "K. Havertz",
+        "d": "Penalty"
+      },
+      {
+        "t": "goal",
+        "m": 47,
+        "team": "Allemagne",
+        "p": "J. Musiala"
+      },
+      {
+        "t": "goal",
+        "m": 68,
+        "team": "Allemagne",
+        "p": "N. Brown"
+      },
+      {
+        "t": "goal",
+        "m": 78,
+        "team": "Allemagne",
+        "p": "D. Undav",
+        "a": "J. Kimmich"
+      },
+      {
+        "t": "goal",
+        "m": 88,
+        "team": "Allemagne",
+        "p": "K. Havertz",
+        "a": "D. Undav"
+      }
     ],
     "Pays-Bas_Japon": [
-      { "t": "goal", "m": 50, "team": "Pays-Bas", "p": "V. van Dijk", "a": "R. Gravenberch" },
-      { "t": "goal", "m": 57, "team": "Japon", "p": "K. Nakamura" },
-      { "t": "goal", "m": 64, "team": "Pays-Bas", "p": "C. Summerville", "a": "R. Gravenberch" },
-      { "t": "goal", "m": 88, "team": "Japon", "p": "D. Kamada", "a": "K. Ogawa" }
+      {
+        "t": "goal",
+        "m": 50,
+        "team": "Pays-Bas",
+        "p": "V. van Dijk",
+        "a": "R. Gravenberch"
+      },
+      {
+        "t": "goal",
+        "m": 57,
+        "team": "Japon",
+        "p": "K. Nakamura"
+      },
+      {
+        "t": "goal",
+        "m": 64,
+        "team": "Pays-Bas",
+        "p": "C. Summerville",
+        "a": "R. Gravenberch"
+      },
+      {
+        "t": "goal",
+        "m": 88,
+        "team": "Japon",
+        "p": "D. Kamada",
+        "a": "K. Ogawa"
+      }
     ],
     "Côte d'Ivoire_Équateur": [
-      { "t": "goal", "m": 90, "team": "Côte d'Ivoire", "p": "A. Diallo", "a": "W. Singo" }
+      {
+        "t": "goal",
+        "m": 90,
+        "team": "Côte d'Ivoire",
+        "p": "A. Diallo",
+        "a": "W. Singo"
+      }
     ],
     "Tunisie_Suède": [
-      { "t": "goal", "m": 7, "team": "Suède", "p": "Y. Ayari" },
-      { "t": "goal", "m": 30, "team": "Suède", "p": "A. Isak" },
-      { "t": "goal", "m": 43, "team": "Tunisie", "p": "O. Rekik", "a": "H. Mejbri" },
-      { "t": "goal", "m": 59, "team": "Suède", "p": "V. Gyökeres", "a": "A. Isak" },
-      { "t": "goal", "m": 84, "team": "Suède", "p": "M. Svanberg" },
-      { "t": "goal", "m": 90, "x": 6, "team": "Suède", "p": "Y. Ayari" }
+      {
+        "t": "goal",
+        "m": 7,
+        "team": "Suède",
+        "p": "Y. Ayari"
+      },
+      {
+        "t": "goal",
+        "m": 30,
+        "team": "Suède",
+        "p": "A. Isak"
+      },
+      {
+        "t": "goal",
+        "m": 43,
+        "team": "Tunisie",
+        "p": "O. Rekik",
+        "a": "H. Mejbri"
+      },
+      {
+        "t": "goal",
+        "m": 59,
+        "team": "Suède",
+        "p": "V. Gyökeres",
+        "a": "A. Isak"
+      },
+      {
+        "t": "goal",
+        "m": 84,
+        "team": "Suède",
+        "p": "M. Svanberg"
+      },
+      {
+        "t": "goal",
+        "m": 90,
+        "x": 6,
+        "team": "Suède",
+        "p": "Y. Ayari"
+      }
     ],
     "Espagne_Cap-Vert": [],
     "Belgique_Égypte": [
-      { "t": "goal", "m": 19, "team": "Égypte", "p": "E. Ashour" },
-      { "t": "goal", "m": 66, "team": "Belgique", "p": "M. Hany", "d": "CSC" }
+      {
+        "t": "goal",
+        "m": 19,
+        "team": "Égypte",
+        "p": "E. Ashour"
+      },
+      {
+        "t": "goal",
+        "m": 66,
+        "team": "Belgique",
+        "p": "M. Hany",
+        "d": "CSC"
+      }
     ],
     "Arabie Saoudite_Uruguay": [
-      { "t": "goal", "m": 41, "team": "Arabie Saoudite", "p": "A. Al-Amri" },
-      { "t": "goal", "m": 80, "team": "Uruguay", "p": "M. Araujo" }
+      {
+        "t": "goal",
+        "m": 41,
+        "team": "Arabie Saoudite",
+        "p": "A. Al-Amri"
+      },
+      {
+        "t": "goal",
+        "m": 80,
+        "team": "Uruguay",
+        "p": "M. Araujo"
+      }
     ],
     "Iran_Nouvelle-Zélande": [
-      { "t": "goal", "m": 7, "team": "Nouvelle-Zélande", "p": "E. Just", "a": "C. Wood" },
-      { "t": "goal", "m": 32, "team": "Iran", "p": "R. Rezaeian" },
-      { "t": "goal", "m": 54, "team": "Nouvelle-Zélande", "p": "E. Just", "a": "C. Wood" },
-      { "t": "goal", "m": 64, "team": "Iran", "p": "M. Mohebbi", "a": "R. Rezaeian" }
+      {
+        "t": "goal",
+        "m": 7,
+        "team": "Nouvelle-Zélande",
+        "p": "E. Just",
+        "a": "C. Wood"
+      },
+      {
+        "t": "goal",
+        "m": 32,
+        "team": "Iran",
+        "p": "R. Rezaeian"
+      },
+      {
+        "t": "goal",
+        "m": 54,
+        "team": "Nouvelle-Zélande",
+        "p": "E. Just",
+        "a": "C. Wood"
+      },
+      {
+        "t": "goal",
+        "m": 64,
+        "team": "Iran",
+        "p": "M. Mohebbi",
+        "a": "R. Rezaeian"
+      }
     ],
     "France_Sénégal": [
-      { "t": "goal", "m": 67, "team": "France", "p": "K. Mbappé" },
-      { "t": "goal", "m": 82, "team": "France", "p": "B. Barcola", "a": "A. Rabiot" },
-      { "t": "goal", "m": 90, "x": 5, "team": "Sénégal", "p": "I. Mbaye", "a": "I. Ndiaye" },
-      { "t": "goal", "m": 90, "x": 6, "team": "France", "p": "K. Mbappé", "a": "M. Olise" }
+      {
+        "t": "goal",
+        "m": 67,
+        "team": "France",
+        "p": "K. Mbappé"
+      },
+      {
+        "t": "goal",
+        "m": 82,
+        "team": "France",
+        "p": "B. Barcola",
+        "a": "A. Rabiot"
+      },
+      {
+        "t": "goal",
+        "m": 90,
+        "x": 5,
+        "team": "Sénégal",
+        "p": "I. Mbaye",
+        "a": "I. Ndiaye"
+      },
+      {
+        "t": "goal",
+        "m": 90,
+        "x": 6,
+        "team": "France",
+        "p": "K. Mbappé",
+        "a": "M. Olise"
+      }
     ],
     "Irak_Norvège": [
-      { "t": "goal", "m": 29, "team": "Norvège", "p": "E. Haaland" },
-      { "t": "goal", "m": 39, "team": "Irak", "p": "A. Hussein" },
-      { "t": "goal", "m": 43, "team": "Norvège", "p": "E. Haaland" },
-      { "t": "goal", "m": 76, "team": "Norvège", "p": "L. Østigård" },
-      { "t": "goal", "m": 90, "x": 6, "team": "Norvège", "p": "A. Hussein", "d": "CSC" }
+      {
+        "t": "goal",
+        "m": 29,
+        "team": "Norvège",
+        "p": "E. Haaland"
+      },
+      {
+        "t": "goal",
+        "m": 39,
+        "team": "Irak",
+        "p": "A. Hussein"
+      },
+      {
+        "t": "goal",
+        "m": 43,
+        "team": "Norvège",
+        "p": "E. Haaland"
+      },
+      {
+        "t": "goal",
+        "m": 76,
+        "team": "Norvège",
+        "p": "L. Østigård"
+      },
+      {
+        "t": "goal",
+        "m": 90,
+        "x": 6,
+        "team": "Norvège",
+        "p": "A. Hussein",
+        "d": "CSC"
+      }
     ],
     "Argentine_Algérie": [
-      { "t": "goal", "m": 17, "team": "Argentine", "p": "L. Messi", "a": "R. De Paul" },
-      { "t": "goal", "m": 60, "team": "Argentine", "p": "L. Messi" },
-      { "t": "goal", "m": 76, "team": "Argentine", "p": "L. Messi", "a": "N. González" }
+      {
+        "t": "goal",
+        "m": 17,
+        "team": "Argentine",
+        "p": "L. Messi",
+        "a": "R. De Paul"
+      },
+      {
+        "t": "goal",
+        "m": 60,
+        "team": "Argentine",
+        "p": "L. Messi"
+      },
+      {
+        "t": "goal",
+        "m": 76,
+        "team": "Argentine",
+        "p": "L. Messi",
+        "a": "N. González"
+      }
     ],
     "Autriche_Jordanie": [
-      { "t": "goal", "m": 20, "team": "Autriche", "p": "R. Schmid" },
-      { "t": "goal", "m": 50, "team": "Jordanie", "p": "A. Olwan" },
-      { "t": "goal", "m": 76, "team": "Autriche", "p": "Y. Alarab", "d": "CSC" },
-      { "t": "goal", "m": 90, "x": 12, "team": "Autriche", "p": "M. Arnautović", "d": "Penalty" }
+      {
+        "t": "goal",
+        "m": 20,
+        "team": "Autriche",
+        "p": "R. Schmid"
+      },
+      {
+        "t": "goal",
+        "m": 50,
+        "team": "Jordanie",
+        "p": "A. Olwan"
+      },
+      {
+        "t": "goal",
+        "m": 76,
+        "team": "Autriche",
+        "p": "Y. Alarab",
+        "d": "CSC"
+      },
+      {
+        "t": "goal",
+        "m": 90,
+        "x": 12,
+        "team": "Autriche",
+        "p": "M. Arnautović",
+        "d": "Penalty"
+      }
     ]
   }
 }
