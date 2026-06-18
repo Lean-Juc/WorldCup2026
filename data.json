@@ -1,7 +1,7 @@
 {
-  "updated": "2026-06-18T15:00:00.000Z",
+  "updated": "2026-06-18T16:30:00.000Z",
   "source": "manual",
-  "count": 22,
+  "count": 24,
   "results": {
     "Mexique_Afrique du Sud": [2, 0],
     "Corée du Sud_Tchéquie": [2, 1],
@@ -24,7 +24,9 @@
     "Argentine_Algérie": [3, 0],
     "Autriche_Jordanie": [3, 1],
     "Portugal_Congo RD": [1, 1],
-    "Angleterre_Croatie": [4, 2]
+    "Angleterre_Croatie": [4, 2],
+    "Ghana_Panama": [1, 0],
+    "Ouzbékistan_Colombie": [1, 3]
   },
   "events": {
     "Mexique_Afrique du Sud": [
@@ -139,6 +141,15 @@
       { "t": "goal", "m": 45, "x": 5, "team": "Croatie", "p": "P. Musa", "a": "I. Perišić" },
       { "t": "goal", "m": 47, "team": "Angleterre", "p": "J. Bellingham" },
       { "t": "goal", "m": 85, "team": "Angleterre", "p": "M. Rashford", "a": "B. Saka" }
+    ],
+    "Ghana_Panama": [
+      { "t": "goal", "m": 90, "x": 5, "team": "Ghana", "p": "C. Yirenkyi", "a": "B. Thomas-Asante" }
+    ],
+    "Ouzbékistan_Colombie": [
+      { "t": "goal", "m": 40, "team": "Colombie", "p": "D. Muñoz" },
+      { "t": "goal", "m": 60, "team": "Ouzbékistan", "p": "A. Fayzullaev" },
+      { "t": "goal", "m": 65, "team": "Colombie", "p": "L. Díaz", "a": "G. Puerta" },
+      { "t": "goal", "m": 90, "x": 9, "team": "Colombie", "p": "J. Campaz", "a": "L. Díaz" }
     ]
   }
 }
