@@ -1,7 +1,7 @@
 {
-  "updated": "2026-06-24T11:00:00.000Z",
+  "updated": "2026-06-24T23:30:00.000Z",
   "source": "manual",
-  "count": 48,
+  "count": 51,
   "results": {
     "Mexique_Afrique du Sud": [2, 0],
     "Corée du Sud_Tchéquie": [2, 1],
@@ -50,7 +50,9 @@
     "Portugal_Ouzbékistan": [5, 0],
     "Angleterre_Ghana": [0, 0],
     "Panama_Croatie": [0, 1],
-    "Colombie_Congo RD": [1, 0]
+    "Colombie_Congo RD": [1, 0],
+    "Suisse_Canada": [2, 1],
+    "Bosnie-Herzégovine_Qatar": [3, 1]
   },
   "events": {
     "Mexique_Afrique du Sud": [
@@ -285,6 +287,17 @@
     ],
     "Colombie_Congo RD": [
       { "t": "goal", "m": 55, "team": "Colombie", "p": "R. Arias", "a": "J. Cuadrado" }
+    ],
+    "Suisse_Canada": [
+      { "t": "goal", "m": 74, "team": "Suisse", "p": "J. Manzambi", "a": "R. Vargas" },
+      { "t": "goal", "m": 75, "team": "Canada", "p": "P. David", "a": "A. Davies" },
+      { "t": "goal", "m": 84, "team": "Suisse", "p": "R. Vargas", "a": "B. Embolo" }
+    ],
+    "Bosnie-Herzégovine_Qatar": [
+      { "t": "goal", "m": 29, "team": "Bosnie-Herzégovine", "p": "K. Alajbegovic" },
+      { "t": "goal", "m": 34, "team": "Bosnie-Herzégovine", "p": "S. Al-Braik", "d": "CSC" },
+      { "t": "goal", "m": 42, "team": "Qatar", "p": "H. Al-Haydos" },
+      { "t": "goal", "m": 80, "team": "Bosnie-Herzégovine", "p": "E. Mahmic" }
     ]
   }
 }
